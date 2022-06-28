@@ -23,7 +23,7 @@ parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
 parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help="Rendering the evaluation runs if set to 1, default=0")
 
-#SAC parameters
+#SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
                     help="Adding Priorizied Experience Replay to the agent if set to 1, default = 0")
 parser.add_argument("-munchausen", type=int, default=0, choices=[0, 1],
@@ -48,7 +48,7 @@ parser.add_argument("-layer_size", type=int, default=256,
 parser.add_argument("-a", "--alpha", type=float,
                     help="entropy alpha value, if not choosen the value is leaned by the agent")
 
-#TD3 parameters
+#TD3 arguments
 parser.add_argument("--start_timesteps", default=25e3, type=int)  # Time steps initial random policy is used
 parser.add_argument("--expl_noise", default=0.1, type=float)  # Std of Gaussian exploration noise
 parser.add_argument("--policy_noise", default=0.2, type=float)  # Noise added to target policy during critic update
