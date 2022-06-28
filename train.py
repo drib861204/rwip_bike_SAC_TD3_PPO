@@ -54,7 +54,7 @@ parser.add_argument("--expl_noise", default=0.1, type=float)  # Std of Gaussian 
 parser.add_argument("--policy_noise", default=0.2, type=float)  # Noise added to target policy during critic update
 parser.add_argument("--noise_clip", default=0.5, type=float)  # Range to clip target policy noise
 parser.add_argument("--policy_freq", default=2, type=int)  # Frequency of delayed policy updates
-parser.add_argument("-lr", default=3e-4, type=float, help="learning rate")
+parser.add_argument("-lr", default=1e-3, type=float, help="learning rate")
 
 args = parser.parse_args()
 
@@ -76,13 +76,15 @@ def train():
     state = env.reset(mode="train")
 
     for frame in range(1, int(args.frames) + 1):
-        print(time.time())
+        #print(time.time())
 
         rep += 1
 
         if frame % eval_every == 0 or frame == 1:
             eval_reward = test(env=env, agent=agent, args=args)
             print("\neval_reward", eval_reward)
+            if eval_reward > -10:
+                break
 
         if args.type == "SAC":
             action = agent.act(state)
