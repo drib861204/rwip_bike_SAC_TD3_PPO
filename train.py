@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(description="")
 parser.add_argument("-type", type=str, default=None, help="SAC, TD3, PPO")
 parser.add_argument("-trial", type=int, default=0, help="trial")
 parser.add_argument("-seed", type=int, default=0, help="Seed for the env and torch network weights, default is 0")
-parser.add_argument("-frames", type=int, default=1e5, help="frames")
+parser.add_argument("-frames", type=int, default=2e5, help="frames")
 parser.add_argument("-w_q1", type=int, default=10, help="q1 weight")
 parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for actor network")
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
@@ -66,6 +66,15 @@ def timer(start, end):
     print("\nTraining Time:  {:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds))
 
 
+def save_pth():
+    if args.type == "SAC":
+        torch.save(agent.actor_local.state_dict(), checkpoint_path)
+    elif args.type == "TD3":
+        torch.save(agent.actor.state_dict(), checkpoint_path)
+    elif args.type == "PPO":
+        torch.save(agent.policy_old.state_dict(), checkpoint_path)
+
+
 def train():
     rep = 0
     rep_max = 500
@@ -84,6 +93,7 @@ def train():
             eval_reward = test(env=env, agent=agent, args=args)
             print("\neval_reward", eval_reward)
             if eval_reward > -10:
+                save_pth()
                 break
 
         if args.type == "SAC":
@@ -129,12 +139,7 @@ def train():
             episode_reward = 0
             state = env.reset(mode="train")
 
-            if args.type == "SAC":
-                torch.save(agent.actor_local.state_dict(), checkpoint_path)
-            elif args.type == "TD3":
-                torch.save(agent.actor.state_dict(), checkpoint_path)
-            elif args.type == "PPO":
-                torch.save(agent.policy_old.state_dict(), checkpoint_path)
+            save_pth()
 
 
 if __name__ == "__main__":
