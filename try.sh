@@ -1,5 +1,5 @@
 #!/bin/sh
-#0629 TD3 3-5 tune w_q1, lr
+#0629 TD3 3-5 result and plot
 
 #python3 train.py -trial 2 -seed 0 -type SAC
 #python3 train.py -trial 2 -seed 1 -type SAC
