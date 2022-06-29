@@ -22,6 +22,7 @@ parser.add_argument("-w_q1", type=int, default=100, help="q1 weight")
 parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for actor network")
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
 parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help="Rendering the evaluation runs if set to 1, default=0")
+parser.add_argument("-done_cost", type=int, default=100, help="done cost")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -144,7 +145,7 @@ def train():
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render, args.w_q1)
+    env = Pendulum(args.render, args.w_q1, args.done_cost)
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
