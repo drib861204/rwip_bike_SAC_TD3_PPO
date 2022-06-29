@@ -1,5 +1,5 @@
 #!/bin/sh
-#0629 TD3 8-9 fix TD3 action error again, tune lr
+#0629 TD3 8-9 result and plot
 
 #python3 train.py -trial 2 -seed 0 -type SAC
 #python3 train.py -trial 2 -seed 1 -type SAC
