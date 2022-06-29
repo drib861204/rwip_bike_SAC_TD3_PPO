@@ -15,6 +15,7 @@ parser.add_argument("-type", type=str, default=None, help="SAC, TD3, PPO")
 parser.add_argument("-trial", type=int, default=0, help="trial")
 parser.add_argument("-seed", type=int, default=0, help="Seed for the env and torch network weights, default is 0")
 parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help="Rendering the evaluation runs if set to 1, default=0")
+parser.add_argument("-w_q1", type=int, default=100, help="q1 weight")
 parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for actor network")
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
 
@@ -160,7 +161,7 @@ def test(env, agent, args):
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render)
+    env = Pendulum(args.render, args.w_q1)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")

@@ -21,11 +21,12 @@ from gym import spaces, logger
 
 
 class Pendulum(gym.Env):
-    def __init__(self, rend):
+    def __init__(self, rend, w_q1=100):
         #self.frames = frames
         #self.interval_num = interval_num
         #self.cur_case = 1
         #self.weight_tau = w_tau
+        self.w_q1 = w_q1
 
         self.theta_rod = 0
         self.theta_wheel = 0
@@ -215,7 +216,7 @@ class Pendulum(gym.Env):
         # costs = 100 * q1 ** 2
         # costs = q1_dot ** 2
         # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2
-        costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2
+        costs = self.w_q1 * q1 ** 2 + 1 * q1_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2
         # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2 + self.weight_speed * q2_dot**2
         # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2 + self.weight_tau * torque**2
         # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.weight_tau * torque ** 2

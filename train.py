@@ -18,7 +18,7 @@ parser.add_argument("-type", type=str, default=None, help="SAC, TD3, PPO")
 parser.add_argument("-trial", type=int, default=0, help="trial")
 parser.add_argument("-seed", type=int, default=0, help="Seed for the env and torch network weights, default is 0")
 parser.add_argument("-frames", type=int, default=2e5, help="frames")
-parser.add_argument("-w_q1", type=int, default=10, help="q1 weight")
+parser.add_argument("-w_q1", type=int, default=100, help="q1 weight")
 parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for actor network")
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
 parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help="Rendering the evaluation runs if set to 1, default=0")
@@ -41,7 +41,7 @@ parser.add_argument("--n_updates", type=int, default=1,
 parser.add_argument("-repm", "--replay_memory", type=int, default=int(1e6),
                     help="Size of the Replay memory, default is 1e6")
 parser.add_argument("-g", "--gamma", type=float, default=0.99, help="discount factor gamma, default is 0.99")
-parser.add_argument("-w", "--worker", type=int, default=1, help="Number of parallel worker, default = 1")
+parser.add_argument("--worker", type=int, default=1, help="Number of parallel worker, default = 1")
 parser.add_argument("-t", "--tau", type=float, default=0.005, help="Softupdate factor tau, default is 0.005")
 parser.add_argument("-layer_size", type=int, default=256,
                     help="Number of nodes per neural network layer, default is 256")
@@ -144,7 +144,7 @@ def train():
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render)
+    env = Pendulum(args.render, args.w_q1)
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
