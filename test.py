@@ -139,6 +139,7 @@ def test(env, agent, args):
             action = action[0]
         elif args.type == "TD3":
             action = agent.select_action(np.array(state))
+            action /= env.max_torque
         elif args.type == "PPO":
             action = agent.select_action(state, test=True)
 
