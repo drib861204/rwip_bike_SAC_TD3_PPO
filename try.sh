@@ -1,5 +1,5 @@
 #!/bin/sh
-#0629 save path before high-evaluation-reward-break, frames->20W
+#0629 PPO 1, SAC2, TD3 2 result and plot
 
 python3 train.py -trial 2 -seed 0 -type SAC
 python3 train.py -trial 2 -seed 1 -type SAC
