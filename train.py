@@ -111,8 +111,7 @@ def train():
                         agent.select_action(np.array(state))
                         + np.random.normal(0, max_action * args.expl_noise, size=action_size)
                 ).clip(-max_action, max_action)
-            action /= env.max_torque
-            next_state, reward, done, _ = env.step(action)
+            next_state, reward, done, _ = env.step(action/env.max_torque)
             done_bool = float(done) if rep < rep_max else 0
             replay_buffer.add(state, action, next_state, reward, done_bool)
             state = next_state
