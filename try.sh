@@ -1,5 +1,5 @@
 #!/bin/sh
-#0629 first try, tune SAC lr
+#0629 0-1 result and plot, TD3 might have action error
 
 python3 train.py -trial 0 -seed 0 -type SAC
 python3 train.py -trial 0 -seed 1 -type SAC
