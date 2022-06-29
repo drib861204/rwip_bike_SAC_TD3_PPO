@@ -20,6 +20,14 @@ import gym
 from gym import spaces, logger
 
 
+'''def normalize(state):
+    state[0] = state[0] / env.max_q1
+    state[1] = (state[1] - env.max_q1dot) / (2 * env.max_q1dot)
+    state[2] = (state[2] - env.wheel_max_speed) / (2 * env.wheel_max_speed)
+
+    return state'''
+
+
 class Pendulum(gym.Env):
     def __init__(self, rend, w_q1=100, done_cost=100):
         #self.frames = frames
@@ -55,7 +63,7 @@ class Pendulum(gym.Env):
         self.dt = 0.005
         self.gravity = 9.81
         self.max_q1 = 3.5*pi/180 # stop training below this angle
-        self.max_q1dot = 1 #initial q1_dot default 0.3? to be verified
+        self.max_q1dot = 0.3 #initial q1_dot default 0.3? to be verified
 
         self.wheel_max_speed = 28
         self.max_torque = 21
@@ -204,9 +212,9 @@ class Pendulum(gym.Env):
         done = bool(
             q1 < -self.max_q1
             or q1 > self.max_q1
+            or q1_dot < -self.max_q1dot
+            or q1_dot > self.max_q1dot
         )
-            #or q1_dot < -self.max_q1dot
-            #or q1_dot > self.max_q1dot
 
         self.theta_rod = q1
         self.theta_wheel = q2
