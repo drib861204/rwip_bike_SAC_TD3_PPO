@@ -19,6 +19,7 @@ parser.add_argument("-w_q1", type=int, default=100, help="q1 weight")
 parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for actor network")
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
 parser.add_argument("-done_cost", type=int, default=100, help="done cost")
+parser.add_argument("-w_q2dot", type=float, default=0.01, help="q2 dot weight")
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -162,7 +163,7 @@ def test(env, agent, args):
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render, args.w_q1, args.done_cost)
+    env = Pendulum(args.render, args.w_q2dot)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
