@@ -1,5 +1,5 @@
 #!/bin/sh
-#0630 normalize agent_state, simple normalization, q1:[0,+3.5], q1dot:[-0.3,+0.3], q2dot:[-28,+28]
+#0630 SAC 3, TD3 11-13, PPO 2 result and plot
 
 python3 train.py -trial 3 -seed 0 -type SAC
 python3 train.py -trial 3 -seed 1 -type SAC
