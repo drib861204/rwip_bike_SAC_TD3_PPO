@@ -1,41 +1,53 @@
 #!/bin/sh
-#0630 TD3 10 result and plot
+#0630 normalize agent_state, simple normalization, q1:[0,+3.5], q1dot:[-0.3,+0.3], q2dot:[-28,+28]
 
-#python3 train.py -trial 2 -seed 0 -type SAC
-#python3 train.py -trial 2 -seed 1 -type SAC
-#python3 train.py -trial 2 -seed 2 -type SAC
-#python3 train.py -trial 2 -seed 3 -type SAC
-#python3 train.py -trial 2 -seed 4 -type SAC
-#python3 plot_graph.py -trial 2 -type SAC
-#python3 test.py -trial 2 -seed 0 -type SAC
-#python3 test.py -trial 2 -seed 1 -type SAC
-#python3 test.py -trial 2 -seed 2 -type SAC
-#python3 test.py -trial 2 -seed 3 -type SAC
-#python3 test.py -trial 2 -seed 4 -type SAC
+python3 train.py -trial 3 -seed 0 -type SAC
+python3 train.py -trial 3 -seed 1 -type SAC
+python3 train.py -trial 3 -seed 2 -type SAC
+python3 train.py -trial 3 -seed 3 -type SAC
+python3 train.py -trial 3 -seed 4 -type SAC
+python3 plot_graph.py -trial 3 -type SAC
+python3 test.py -trial 3 -seed 0 -type SAC
+python3 test.py -trial 3 -seed 1 -type SAC
+python3 test.py -trial 3 -seed 2 -type SAC
+python3 test.py -trial 3 -seed 3 -type SAC
+python3 test.py -trial 3 -seed 4 -type SAC
 
-#python3 train.py -trial 8 -seed 0 -type TD3
-#python3 train.py -trial 8 -seed 1 -type TD3
-#python3 train.py -trial 8 -seed 2 -type TD3
-#python3 train.py -trial 8 -seed 3 -type TD3
-#python3 train.py -trial 8 -seed 4 -type TD3
-#python3 plot_graph.py -trial 8 -type TD3
-#python3 test.py -trial 8 -seed 0 -type TD3
-#python3 test.py -trial 8 -seed 1 -type TD3
-#python3 test.py -trial 8 -seed 2 -type TD3
-#python3 test.py -trial 8 -seed 3 -type TD3
-#python3 test.py -trial 8 -seed 4 -type TD3
+python3 train.py -trial 11 -seed 0 -type TD3 -lr 1e-4
+python3 train.py -trial 11 -seed 1 -type TD3 -lr 1e-4
+python3 train.py -trial 11 -seed 2 -type TD3 -lr 1e-4
+python3 train.py -trial 11 -seed 3 -type TD3 -lr 1e-4
+python3 train.py -trial 11 -seed 4 -type TD3 -lr 1e-4
+python3 plot_graph.py -trial 11 -type TD3
+python3 test.py -trial 11 -seed 0 -type TD3 -lr 1e-4
+python3 test.py -trial 11 -seed 1 -type TD3 -lr 1e-4
+python3 test.py -trial 11 -seed 2 -type TD3 -lr 1e-4
+python3 test.py -trial 11 -seed 3 -type TD3 -lr 1e-4
+python3 test.py -trial 11 -seed 4 -type TD3 -lr 1e-4
 
-python3 train.py -trial 10 -seed 0 -type TD3 -lr 7e-4
-python3 train.py -trial 10 -seed 1 -type TD3 -lr 7e-4
-python3 train.py -trial 10 -seed 2 -type TD3 -lr 7e-4
-python3 train.py -trial 10 -seed 3 -type TD3 -lr 7e-4
-python3 train.py -trial 10 -seed 4 -type TD3 -lr 7e-4
-python3 plot_graph.py -trial 10 -type TD3
-python3 test.py -trial 10 -seed 0 -type TD3 -lr 7e-4
-python3 test.py -trial 10 -seed 1 -type TD3 -lr 7e-4
-python3 test.py -trial 10 -seed 2 -type TD3 -lr 7e-4
-python3 test.py -trial 10 -seed 3 -type TD3 -lr 7e-4
-python3 test.py -trial 10 -seed 4 -type TD3 -lr 7e-4
+python3 train.py -trial 12 -seed 0 -type TD3 -lr 3e-4
+python3 train.py -trial 12 -seed 1 -type TD3 -lr 3e-4
+python3 train.py -trial 12 -seed 2 -type TD3 -lr 3e-4
+python3 train.py -trial 12 -seed 3 -type TD3 -lr 3e-4
+python3 train.py -trial 12 -seed 4 -type TD3 -lr 3e-4
+python3 plot_graph.py -trial 12 -type TD3
+python3 test.py -trial 12 -seed 0 -type TD3 -lr 3e-4
+python3 test.py -trial 12 -seed 1 -type TD3 -lr 3e-4
+python3 test.py -trial 12 -seed 2 -type TD3 -lr 3e-4
+python3 test.py -trial 12 -seed 3 -type TD3 -lr 3e-4
+python3 test.py -trial 12 -seed 4 -type TD3 -lr 3e-4
+
+python3 train.py -trial 13 -seed 0 -type TD3 -lr 7e-4
+python3 train.py -trial 13 -seed 1 -type TD3 -lr 7e-4
+python3 train.py -trial 13 -seed 2 -type TD3 -lr 7e-4
+python3 train.py -trial 13 -seed 3 -type TD3 -lr 7e-4
+python3 train.py -trial 13 -seed 4 -type TD3 -lr 7e-4
+python3 plot_graph.py -trial 13 -type TD3
+python3 test.py -trial 13 -seed 0 -type TD3 -lr 7e-4
+python3 test.py -trial 13 -seed 1 -type TD3 -lr 7e-4
+python3 test.py -trial 13 -seed 2 -type TD3 -lr 7e-4
+python3 test.py -trial 13 -seed 3 -type TD3 -lr 7e-4
+python3 test.py -trial 13 -seed 4 -type TD3 -lr 7e-4
 
 #python3 train.py -trial 4 -seed 0 -type TD3 -w_q1 1000
 #python3 train.py -trial 4 -seed 1 -type TD3 -w_q1 1000
@@ -61,14 +73,14 @@ python3 test.py -trial 10 -seed 4 -type TD3 -lr 7e-4
 #python3 test.py -trial 5 -seed 3 -type TD3 -lr 3e-4 -w_q1 1000
 #python3 test.py -trial 5 -seed 4 -type TD3 -lr 3e-4 -w_q1 1000
 
-#python3 train.py -trial 1 -seed 0 -type PPO
-#python3 train.py -trial 1 -seed 1 -type PPO
-#python3 train.py -trial 1 -seed 2 -type PPO
-#python3 train.py -trial 1 -seed 3 -type PPO
-#python3 train.py -trial 1 -seed 4 -type PPO
-#python3 plot_graph.py -trial 1 -type PPO
-#python3 test.py -trial 1 -seed 0 -type PPO
-#python3 test.py -trial 1 -seed 1 -type PPO
-#python3 test.py -trial 1 -seed 2 -type PPO
-#python3 test.py -trial 1 -seed 3 -type PPO
-#python3 test.py -trial 1 -seed 4 -type PPO
+python3 train.py -trial 2 -seed 0 -type PPO
+python3 train.py -trial 2 -seed 1 -type PPO
+python3 train.py -trial 2 -seed 2 -type PPO
+python3 train.py -trial 2 -seed 3 -type PPO
+python3 train.py -trial 2 -seed 4 -type PPO
+python3 plot_graph.py -trial 2 -type PPO
+python3 test.py -trial 2 -seed 0 -type PPO
+python3 test.py -trial 2 -seed 1 -type PPO
+python3 test.py -trial 2 -seed 2 -type PPO
+python3 test.py -trial 2 -seed 3 -type PPO
+python3 test.py -trial 2 -seed 4 -type PPO

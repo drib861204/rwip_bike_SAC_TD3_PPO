@@ -20,14 +20,6 @@ import gym
 from gym import spaces, logger
 
 
-'''def normalize(state):
-    state[0] = state[0] / env.max_q1
-    state[1] = (state[1] - env.max_q1dot) / (2 * env.max_q1dot)
-    state[2] = (state[2] - env.wheel_max_speed) / (2 * env.wheel_max_speed)
-
-    return state'''
-
-
 class Pendulum(gym.Env):
     def __init__(self, rend, w_q1=100, done_cost=100):
         #self.frames = frames
@@ -126,8 +118,9 @@ class Pendulum(gym.Env):
 
         #self.last_u = None
         self.last_torque = 0
+        self.agent_state = self.norm_agent_state(self.agent_state)
 
-        return self.agent_state
+        return np.array(self.agent_state, dtype=np.float32)
 
 
     def render(self, eval_run):
@@ -247,6 +240,7 @@ class Pendulum(gym.Env):
             costs = 0.000025 * q2_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2'''
 
         self.last_torque = torque
+        self.agent_state = self.norm_agent_state(self.agent_state)
 
         #print("state: ", self.state)
         #print("agent state: ", self.agent_state)
@@ -258,6 +252,12 @@ class Pendulum(gym.Env):
         pygame.display.quit()
         pygame.quit()
 
+    def norm_agent_state(self, state):
+        state = (state[0] / self.max_q1,
+                 (state[1] - self.max_q1dot) / (2 * self.max_q1dot),
+                 (state[2] - self.wheel_max_speed) / (2 * self.wheel_max_speed)
+        )
+        return state
 
 def angle_normalize(th):
     return ((th+pi)%(2*pi))-pi
