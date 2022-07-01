@@ -24,6 +24,7 @@ parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for 
 parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help="Rendering the evaluation runs if set to 1, default=0")
 parser.add_argument("-done_cost", type=int, default=100, help="done cost")
 parser.add_argument("-w_q2dot", type=float, default=0.0, help="q2 dot weight")
+parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -101,10 +102,10 @@ def train():
         if args.type == "SAC":
             action = agent.act(state)
             next_state, reward, done, _ = env.step(action)
-            if done or rep >= rep_max:
-                agent.step(state, action, reward, next_state, [done], frame, 0)
-            else:
-                agent.memory.add(state, action, reward, next_state, [done])
+            #if done or rep >= rep_max:
+            agent.step(state, action, reward, next_state, [done], frame, 0)
+            #else:
+            #    agent.memory.add(state, action, reward, next_state, [done])
             state = next_state
 
         elif args.type == "TD3":
@@ -148,7 +149,7 @@ def train():
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render)
+    env = Pendulum(args.render, args.log_norm)
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)

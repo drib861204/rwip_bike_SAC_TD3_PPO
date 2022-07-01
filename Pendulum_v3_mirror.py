@@ -13,7 +13,7 @@ Author: [openai](https://github.com/openai)
 Last modified: 2021/10/31
 """
 import pygame
-from math import pi, sin, cos
+from math import pi, sin, cos, log
 import numpy as np
 
 import gym
@@ -21,7 +21,7 @@ from gym import spaces, logger
 
 
 class Pendulum(gym.Env):
-    def __init__(self, rend):
+    def __init__(self, rend, log_norm):
         #self.frames = frames
         #self.interval_num = interval_num
         #self.cur_case = 1
@@ -29,6 +29,7 @@ class Pendulum(gym.Env):
         #self.w_q1 = w_q1
         #self.done_cost = done_cost
         #self.w_q2dot = w_q2dot
+        self.log_norm = log_norm
 
         self.theta_rod = 0
         self.theta_wheel = 0
@@ -119,7 +120,11 @@ class Pendulum(gym.Env):
 
         #self.last_u = None
         self.last_torque = 0
-        self.agent_state = self.norm_agent_state(self.agent_state)
+
+        if not self.log_norm:
+            self.agent_state = self.norm_agent_state(self.agent_state)
+        else:
+            self.agent_state = self.log_norm_agent_state(self.agent_state)
 
         return np.array(self.agent_state, dtype=np.float32)
 
@@ -241,7 +246,10 @@ class Pendulum(gym.Env):
             costs = 0.000025 * q2_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2'''
 
         self.last_torque = torque
-        self.agent_state = self.norm_agent_state(self.agent_state)
+        if not self.log_norm:
+            self.agent_state = self.norm_agent_state(self.agent_state)
+        else:
+            self.agent_state = self.log_norm_agent_state(self.agent_state)
 
         #print("state: ", self.state)
         #print("agent state: ", self.agent_state)
@@ -255,9 +263,24 @@ class Pendulum(gym.Env):
 
     def norm_agent_state(self, state):
         state = (state[0] / self.max_q1,
-                 (state[1] - self.max_q1dot) / (2 * self.max_q1dot),
-                 (state[2] - self.wheel_max_speed) / (2 * self.wheel_max_speed)
+                 (state[1] - (-self.max_q1dot)) / (2 * self.max_q1dot),
+                 (state[2] - (-self.wheel_max_speed)) / (2 * self.wheel_max_speed)
         )
+        return state
+
+    def log_norm_agent_state(self, state):
+        if state[1] >= 0:
+            sign = 1
+            state_1 = state[1]
+        else:
+            sign = -1
+            state_1 = -state[1]
+
+        state = ((log((state[0]+0.01), 10) - (-2)) / (log((self.max_q1+0.01), 10) - (-2)),
+                 sign * ((log((state_1+0.01), 10) - (-2)) / (log((self.max_q1dot+0.01), 10) - (-2))),
+                 (state[2] - (-self.wheel_max_speed)) / (2 * self.wheel_max_speed)
+                 )
+
         return state
 
 def angle_normalize(th):

@@ -20,6 +20,7 @@ parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
 parser.add_argument("-done_cost", type=int, default=100, help="done cost")
 parser.add_argument("-w_q2dot", type=float, default=0.01, help="q2 dot weight")
+parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -163,7 +164,7 @@ def test(env, agent, args):
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render)
+    env = Pendulum(args.render, args.log_norm)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -200,8 +201,7 @@ if __name__ == "__main__":
         agent.actor.load_state_dict(torch.load(checkpoint_path, map_location=torch.device('cpu')))
 
     elif args.type == "PPO":
-        action_std = 0.1  # starting std for action distribution (Multivariate Normal)
-        min_action_std = 0.1  # minimum action_std (stop decay after action_std <= min_action_std)
+        action_std = 0.001 #0.1  # starting std for action distribution (Multivariate Normal)
         K_epochs = 80
         eps_clip = 0.2
         gamma = args.gamma
