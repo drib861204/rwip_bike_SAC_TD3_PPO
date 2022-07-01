@@ -101,7 +101,10 @@ def train():
         if args.type == "SAC":
             action = agent.act(state)
             next_state, reward, done, _ = env.step(action)
-            agent.step(state, action, reward, next_state, [done], frame, 0)
+            if done or rep >= rep_max:
+                agent.step(state, action, reward, next_state, [done], frame, 0)
+            else:
+                agent.memory.add(state, action, reward, next_state, [done])
             state = next_state
 
         elif args.type == "TD3":
@@ -145,7 +148,7 @@ def train():
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render, args.w_q2dot)
+    env = Pendulum(args.render)
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
