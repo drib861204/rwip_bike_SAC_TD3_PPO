@@ -1,5 +1,5 @@
 #!/bin/sh
-#0630 SAC 4-7 tune w_q2dot 
+#0701 SAC 4-7 result and plot 
 
 python3 train.py -trial 4 -seed 0 -type SAC -w_q2dot 0.01
 python3 train.py -trial 4 -seed 1 -type SAC -w_q2dot 0.01
