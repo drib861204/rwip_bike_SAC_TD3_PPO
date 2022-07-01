@@ -1,5 +1,5 @@
 #!/bin/sh
-#0701 SAC 8 learn every step -> only learn when episode done
+#0701 SAC 8 result and plot
 
 python3 train.py -trial 8 -seed 0 -type SAC
 python3 train.py -trial 8 -seed 1 -type SAC
