@@ -1,5 +1,5 @@
 #!/bin/sh
-#0702 PPO test action_std->0.001(more deterministic), SAC 9 normalize(fix norm bug), 10 log -> normalize, TD3 14-17, PPO 3,4
+#0702 SAC 9,10, TD3 14-17, PPO 3,4 result and plot
 
 python3 train.py -trial 9 -seed 0 -type SAC -log_norm 0
 python3 train.py -trial 9 -seed 1 -type SAC -log_norm 0
