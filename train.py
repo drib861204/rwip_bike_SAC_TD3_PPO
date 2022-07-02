@@ -84,6 +84,7 @@ def train():
     eval_every = 1000
     episode_reward = 0
     i_episode = 1
+    save_count = 0
 
     state = env.reset(mode="train")
 
@@ -96,8 +97,10 @@ def train():
             eval_reward = test(env=env, agent=agent, args=args)
             print("\neval_reward", eval_reward)
             if eval_reward > -10:
-                save_pth()
-                break
+                save_count += 1
+                if save_count >= 10:
+                    save_pth()
+                    break
 
         if args.type == "SAC":
             action = agent.act(state)
