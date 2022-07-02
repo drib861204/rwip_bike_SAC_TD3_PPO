@@ -55,23 +55,29 @@ def save_graph():
     log_dir = f'runs_{args.type}/rwip{args.trial}/log'
 
     current_num_files = next(os.walk(log_dir))[2]
-    num_runs = len(current_num_files)
+    num_runs = len(current_num_files) / 2
 
     all_runs = []
+    eval_runs = []
 
-    for run_num in range(num_runs):
+    for run_num in range(int(num_runs)):
 
         log_f_name = log_dir + f'/{args.type}_log_{run_num}.csv'
         print("loading data from : " + log_f_name)
         data = pd.read_csv(log_f_name)
         data = pd.DataFrame(data)
-
         print("data shape : ", data.shape)
-
         all_runs.append(data)
+
+        log_f_eval_name = log_dir + f'/{args.type}_log_eval_{run_num}.csv'
+        data_eval = pd.read_csv(log_f_eval_name)
+        data_eval = pd.DataFrame(data_eval)
+        eval_runs.append(data_eval)
+
         print("--------------------------------------------------------------------------------------------")
 
     ax = plt.gca()
+    ax_eval = plt.gca()
 
     if plot_avg:
         # average all runs
@@ -112,7 +118,7 @@ def save_graph():
             # plot the lines
             run.plot(kind='line', x='timestep', y='reward_smooth_' + str(i),ax=ax,color=colors[i % len(colors)],  linewidth=linewidth_smooth, alpha=alpha_smooth)
             #run.plot(kind='line', x='timestep', y='reward_var_' + str(i),ax=ax,color=colors[i % len(colors)],  linewidth=linewidth_var, alpha=alpha_var)
-            run.plot(kind='line', x='timestep', y='raw_reward', ax=ax, color=colors[i % len(colors)], linewidth=linewidth_var, alpha=alpha_var)
+            #run.plot(kind='line', x='timestep', y='raw_reward', ax=ax, color=colors[i % len(colors)], linewidth=linewidth_var, alpha=alpha_var)
 
         # keep alternate elements (reward_smooth_i) in the legend
         handles, labels = ax.get_legend_handles_labels()
@@ -123,6 +129,21 @@ def save_graph():
                 new_handles.append(handles[i])
                 new_labels.append(labels[i])
         ax.legend(new_handles, new_labels, loc=4)
+
+        ############eval plot############
+        for i, run in enumerate(eval_runs):
+            # plot the lines
+            run.plot(kind='line', x='timestep', y='eval_reward',ax=ax_eval,color=colors[i % len(colors)],  linewidth=2.5, alpha=0.5)
+
+        # keep alternate elements (reward_smooth_i) in the legend
+        handles, labels = ax_eval.get_legend_handles_labels()
+        new_handles = []
+        new_labels = []
+        for i in range(len(handles)):
+            new_handles.append(handles[i])
+            new_labels.append(labels[i])
+        ax_eval.legend(new_handles, new_labels, loc=4)
+        #################################
 
     # ax.set_yticks(np.arange(0, 1800, 200))
     # ax.set_xticks(np.arange(0, int(4e6), int(5e5)))

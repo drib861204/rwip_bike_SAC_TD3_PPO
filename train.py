@@ -25,6 +25,8 @@ parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help=
 parser.add_argument("-done_cost", type=int, default=100, help="done cost")
 parser.add_argument("-w_q2dot", type=float, default=0.0, help="q2 dot weight")
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
+parser.add_argument("-to_last_frame", type=int, default=0, help="0: stop when eval_reward is high, 1: train till the last frame")
+parser.add_argument("-env_dt", type=float, default=0.005, help="timestep")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -57,7 +59,7 @@ parser.add_argument("--expl_noise", default=0.1, type=float)  # Std of Gaussian 
 parser.add_argument("--policy_noise", default=0.2, type=float)  # Noise added to target policy during critic update
 parser.add_argument("--noise_clip", default=0.5, type=float)  # Range to clip target policy noise
 parser.add_argument("--policy_freq", default=2, type=int)  # Frequency of delayed policy updates
-parser.add_argument("-lr", default=1e-3, type=float, help="learning rate")
+#parser.add_argument("-lr", default=1e-3, type=float, help="learning rate")
 
 args = parser.parse_args()
 
@@ -96,11 +98,15 @@ def train():
         if frame % eval_every == 0 or frame == 1:
             eval_reward = test(env=env, agent=agent, args=args)
             print("\neval_reward", eval_reward)
-            if eval_reward > -10:
-                save_count += 1
-                if save_count >= 10:
-                    save_pth()
-                    break
+            log_f_eval.write('{},{}\n'.format(frame, eval_reward))
+            log_f_eval.flush()
+            if not args.to_last_frame:
+                print("inside")
+                if eval_reward > -10:
+                    save_count += 1
+                    if save_count >= 10:
+                        save_pth()
+                        break
 
         if args.type == "SAC":
             action = agent.act(state)
@@ -152,7 +158,7 @@ def train():
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render, args.log_norm)
+    env = Pendulum(args.render, args.env_dt)
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
@@ -177,7 +183,8 @@ if __name__ == "__main__":
             "policy_noise": args.policy_noise * max_action,
             "noise_clip": args.noise_clip * max_action,
             "policy_freq": args.policy_freq,
-            "lr": args.lr
+            "lr_a": args.lr_a,
+            "lr_c": args.lr_c
         }
         agent = TD3.TD3(**kwargs)
         replay_buffer = utils.ReplayBuffer(state_size, action_size)
@@ -206,12 +213,15 @@ if __name__ == "__main__":
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
 
-    current_num_files = next(os.walk(log_dir))[2]
-    run_num = len(current_num_files)
+    #current_num_files = next(os.walk(log_dir))[2]
+    #run_num = len(current_num_files)
 
-    log_f_name = log_dir + f"/{args.type}_log_{run_num}.csv"
+    log_f_name = log_dir + f"/{args.type}_log_{args.seed}.csv"
     log_f = open(log_f_name, "w+")
     log_f.write('episode,timestep,raw_reward\n')
+    log_f_eval_name = log_dir + f"/{args.type}_log_eval_{args.seed}.csv"
+    log_f_eval = open(log_f_eval_name, "w+")
+    log_f_eval.write('timestep,eval_reward\n')
     #####################################################
 
     t0 = time.time()
@@ -222,3 +232,4 @@ if __name__ == "__main__":
     timer(t0, t1)
     env.close()
     log_f.close()
+    log_f_eval.close()

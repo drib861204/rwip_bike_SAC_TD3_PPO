@@ -21,6 +21,8 @@ parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for 
 parser.add_argument("-done_cost", type=int, default=100, help="done cost")
 parser.add_argument("-w_q2dot", type=float, default=0.01, help="q2 dot weight")
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
+parser.add_argument("-to_last_frame", type=int, default=0, help="0: stop when eval_reward is high, 1: train till the last frame")
+parser.add_argument("-env_dt", type=float, default=0.005, help="timestep")
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -53,7 +55,7 @@ parser.add_argument("--expl_noise", default=0.1, type=float)  # Std of Gaussian 
 parser.add_argument("--policy_noise", default=0.2, type=float)  # Noise added to target policy during critic update
 parser.add_argument("--noise_clip", default=0.5, type=float)  # Range to clip target policy noise
 parser.add_argument("--policy_freq", default=2, type=int)  # Frequency of delayed policy updates
-parser.add_argument("-lr", default=3e-4, type=float, help="learning rate")
+#parser.add_argument("-lr", default=3e-4, type=float, help="learning rate")
 
 args = parser.parse_args()
 
@@ -164,7 +166,7 @@ def test(env, agent, args):
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render, args.log_norm)
+    env = Pendulum(args.render, args.env_dt)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -194,7 +196,8 @@ if __name__ == "__main__":
             "policy_noise": args.policy_noise * max_action,
             "noise_clip": args.noise_clip * max_action,
             "policy_freq": args.policy_freq,
-            "lr": args.lr
+            "lr_a": args.lr_a,
+            "lr_c": args.lr_c
         }
         agent = TD3.TD3(**kwargs)
         replay_buffer = utils.ReplayBuffer(state_size, action_size)
