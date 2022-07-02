@@ -1,5 +1,5 @@
 #!/bin/sh
-#0702 end training when eval_reward>-10 for 10 times, SAC 11,12, TD3 18-21, PPO 5,6
+#0702 SAC 11,12, TD3 18-21, PPO 5,6 result and plot
 
 python3 train.py -trial 11 -seed 0 -type SAC -log_norm 0
 python3 train.py -trial 11 -seed 1 -type SAC -log_norm 0
