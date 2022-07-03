@@ -27,6 +27,7 @@ parser.add_argument("-w_q2dot", type=float, default=0.0, help="q2 dot weight")
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 parser.add_argument("-to_last_frame", type=int, default=0, help="0: stop when eval_reward is high, 1: train till the last frame")
 parser.add_argument("-env_dt", type=float, default=0.005, help="timestep")
+parser.add_argument("-up_step", type=int, default=2000, help="PPO update timestep")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -193,7 +194,7 @@ if __name__ == "__main__":
         action_std_decay_rate = 0.05  # linearly decay action_std (action_std = action_std - action_std_decay_rate)
         min_action_std = 0.1  # minimum action_std (stop decay after action_std <= min_action_std)
         action_std_decay_freq = args.frames / 10  # int(2.5e5)  # action_std decay frequency (in num timesteps)
-        update_timestep = 2000
+        update_timestep = args.up_step #2000
         K_epochs = 80
         eps_clip = 0.2
         gamma = args.gamma

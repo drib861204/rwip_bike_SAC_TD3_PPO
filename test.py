@@ -23,6 +23,7 @@ parser.add_argument("-w_q2dot", type=float, default=0.01, help="q2 dot weight")
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 parser.add_argument("-to_last_frame", type=int, default=0, help="0: stop when eval_reward is high, 1: train till the last frame")
 parser.add_argument("-env_dt", type=float, default=0.005, help="timestep")
+parser.add_argument("-up_step", type=int, default=2000, help="PPO update timestep")
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
