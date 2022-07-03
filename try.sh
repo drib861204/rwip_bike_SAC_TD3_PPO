@@ -1,4 +1,5 @@
 #!/bin/sh
+# result and plot
 # 0703 PPO 11, 12
 # tune update timestep 1000, 4000
 
