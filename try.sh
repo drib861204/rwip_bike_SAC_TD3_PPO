@@ -1,4 +1,5 @@
 #!/bin/sh
+# result and plot
 # 0703 SAC 16&17, TD3 24&25, PPO 9&10
 # tune timestep 0.05, 0.1
 
