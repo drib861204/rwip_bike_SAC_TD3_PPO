@@ -1,4 +1,5 @@
 #!/bin/sh
+# result and plot
 # 0703 SAC 13&14, TD3 22&23, PPO 7&8 (-to_last_frame 0&1)
 # TD3 same lr as others(lra 0.0003, lrc 0.001)
 # normalize: wrong but excellent version
