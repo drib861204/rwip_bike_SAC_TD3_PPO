@@ -133,7 +133,7 @@ def save_graph():
         ############eval plot############
         for i, run in enumerate(eval_runs):
             # plot the lines
-            run.plot(kind='line', x='timestep', y='eval_reward',ax=ax_eval,color=colors[i % len(colors)],  linewidth=2.5, alpha=0.5)
+            run.plot(kind='line', x='timestep', y='eval_reward',ax=ax_eval,color=colors[i % len(colors)],  linewidth=1.5, alpha=0.2)
 
         # keep alternate elements (reward_smooth_i) in the legend
         handles, labels = ax_eval.get_legend_handles_labels()

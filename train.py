@@ -101,7 +101,6 @@ def train():
             log_f_eval.write('{},{}\n'.format(frame, eval_reward))
             log_f_eval.flush()
             if not args.to_last_frame:
-                print("inside")
                 if eval_reward > -10:
                     save_count += 1
                     if save_count >= 10:

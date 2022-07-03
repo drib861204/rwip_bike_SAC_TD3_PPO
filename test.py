@@ -132,8 +132,12 @@ def test(env, agent, args):
     state = env.reset(mode="test")
     episode_reward = 0
     rep = 0
-    time_duration = 5  # seconds
-    rep_max = time_duration / env.dt
+    '''if args.env_dt == 0.05:
+        time_duration = 50  # seconds
+    else:
+        time_duration = 5  # seconds
+    rep_max = time_duration / env.dt'''
+    rep_max = 1000
 
     while True:
         rep += 1
