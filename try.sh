@@ -1,5 +1,5 @@
 #!/bin/sh
-# 0706 SAC 19(env_dt 0.2) & 20,21, TD3 26-28, PPO 13-15 env_dt 0.001,0.01,0.03
+# result and plot: 0706 SAC 19(env_dt 0.2) & 20,21, TD3 26-28, PPO 13-15 env_dt 0.001,0.01,0.03
 
 python3 train.py -trial 19 -seed 0 -type SAC -env_dt 0.2
 python3 train.py -trial 19 -seed 1 -type SAC -env_dt 0.2
