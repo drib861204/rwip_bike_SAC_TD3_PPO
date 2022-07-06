@@ -21,7 +21,7 @@ from gym import spaces, logger
 
 
 class Pendulum(gym.Env):
-    def __init__(self, rend, env_dt):
+    def __init__(self, rend, env_dt, stay_reward):
         #self.frames = frames
         #self.interval_num = interval_num
         #self.cur_case = 1
@@ -30,6 +30,7 @@ class Pendulum(gym.Env):
         #self.done_cost = done_cost
         #self.w_q2dot = w_q2dot
         #self.log_norm = log_norm
+        self.stay_reward = stay_reward
 
         self.theta_rod = 0
         self.theta_wheel = 0
@@ -231,6 +232,8 @@ class Pendulum(gym.Env):
         # costs = 1000 * q1 ** 2 + 0.1 * q1_dot ** 2 + 0.001 * torque ** 2 + 0.00001 * q2_dot**2
         # costs = 100 * q1 ** 2 + 0.00001 * q2_dot ** 2
         # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + 100 * torque ** 2 + 0.001 * q2_dot ** 2
+
+        costs -= self.stay_reward # gain reward for staying in the range
 
         if done:
             costs += 100

@@ -24,6 +24,7 @@ parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log
 parser.add_argument("-to_last_frame", type=int, default=0, help="0: stop when eval_reward is high, 1: train till the last frame")
 parser.add_argument("-env_dt", type=float, default=0.005, help="timestep")
 parser.add_argument("-up_step", type=int, default=2000, help="PPO update timestep")
+parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained for staying in the range")
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -171,7 +172,7 @@ def test(env, agent, args):
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render, args.env_dt)
+    env = Pendulum(args.render, args.env_dt, args.stay_reward)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
