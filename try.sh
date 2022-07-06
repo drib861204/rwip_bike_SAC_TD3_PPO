@@ -37,11 +37,11 @@
 #python3 test.py -trial 21 -seed 3 -type SAC -env_dt 0.03
 #python3 test.py -trial 21 -seed 4 -type SAC -env_dt 0.03
 
-python3 train.py -trial 29 -seed 0 -type TD3 -env_dt 0.05 --start_timesteps 1e3
-python3 train.py -trial 29 -seed 1 -type TD3 -env_dt 0.05 --start_timesteps 1e3
-python3 train.py -trial 29 -seed 2 -type TD3 -env_dt 0.05 --start_timesteps 1e3
-python3 train.py -trial 29 -seed 3 -type TD3 -env_dt 0.05 --start_timesteps 1e3
-python3 train.py -trial 29 -seed 4 -type TD3 -env_dt 0.05 --start_timesteps 1e3
+python3 train.py -trial 29 -seed 0 -type TD3 -env_dt 0.05 --start_timesteps 1000
+python3 train.py -trial 29 -seed 1 -type TD3 -env_dt 0.05 --start_timesteps 1000
+python3 train.py -trial 29 -seed 2 -type TD3 -env_dt 0.05 --start_timesteps 1000
+python3 train.py -trial 29 -seed 3 -type TD3 -env_dt 0.05 --start_timesteps 1000
+python3 train.py -trial 29 -seed 4 -type TD3 -env_dt 0.05 --start_timesteps 1000
 python3 plot_graph.py -trial 29 -type TD3
 python3 test.py -trial 29 -seed 0 -type TD3 -env_dt 0.05
 python3 test.py -trial 29 -seed 1 -type TD3 -env_dt 0.05
@@ -49,11 +49,11 @@ python3 test.py -trial 29 -seed 2 -type TD3 -env_dt 0.05
 python3 test.py -trial 29 -seed 3 -type TD3 -env_dt 0.05
 python3 test.py -trial 29 -seed 4 -type TD3 -env_dt 0.05
 
-python3 train.py -trial 30 -seed 0 -type TD3 -env_dt 0.05 --start_timesteps 5e3
-python3 train.py -trial 30 -seed 1 -type TD3 -env_dt 0.05 --start_timesteps 5e3
-python3 train.py -trial 30 -seed 2 -type TD3 -env_dt 0.05 --start_timesteps 5e3
-python3 train.py -trial 30 -seed 3 -type TD3 -env_dt 0.05 --start_timesteps 5e3
-python3 train.py -trial 30 -seed 4 -type TD3 -env_dt 0.05 --start_timesteps 5e3
+python3 train.py -trial 30 -seed 0 -type TD3 -env_dt 0.05 --start_timesteps 5000
+python3 train.py -trial 30 -seed 1 -type TD3 -env_dt 0.05 --start_timesteps 5000
+python3 train.py -trial 30 -seed 2 -type TD3 -env_dt 0.05 --start_timesteps 5000
+python3 train.py -trial 30 -seed 3 -type TD3 -env_dt 0.05 --start_timesteps 5000
+python3 train.py -trial 30 -seed 4 -type TD3 -env_dt 0.05 --start_timesteps 5000
 python3 plot_graph.py -trial 30 -type TD3
 python3 test.py -trial 30 -seed 0 -type TD3 -env_dt 0.05
 python3 test.py -trial 30 -seed 1 -type TD3 -env_dt 0.05
@@ -61,11 +61,11 @@ python3 test.py -trial 30 -seed 2 -type TD3 -env_dt 0.05
 python3 test.py -trial 30 -seed 3 -type TD3 -env_dt 0.05
 python3 test.py -trial 30 -seed 4 -type TD3 -env_dt 0.05
 
-python3 train.py -trial 31 -seed 0 -type TD3 -env_dt 0.05 --start_timesteps 1e4
-python3 train.py -trial 31 -seed 1 -type TD3 -env_dt 0.05 --start_timesteps 1e4
-python3 train.py -trial 31 -seed 2 -type TD3 -env_dt 0.05 --start_timesteps 1e4
-python3 train.py -trial 31 -seed 3 -type TD3 -env_dt 0.05 --start_timesteps 1e4
-python3 train.py -trial 31 -seed 4 -type TD3 -env_dt 0.05 --start_timesteps 1e4
+python3 train.py -trial 31 -seed 0 -type TD3 -env_dt 0.05 --start_timesteps 10000
+python3 train.py -trial 31 -seed 1 -type TD3 -env_dt 0.05 --start_timesteps 10000
+python3 train.py -trial 31 -seed 2 -type TD3 -env_dt 0.05 --start_timesteps 10000
+python3 train.py -trial 31 -seed 3 -type TD3 -env_dt 0.05 --start_timesteps 10000
+python3 train.py -trial 31 -seed 4 -type TD3 -env_dt 0.05 --start_timesteps 10000
 python3 plot_graph.py -trial 31 -type TD3
 python3 test.py -trial 31 -seed 0 -type TD3 -env_dt 0.05
 python3 test.py -trial 31 -seed 1 -type TD3 -env_dt 0.05
