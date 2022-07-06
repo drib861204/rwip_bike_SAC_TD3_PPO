@@ -1,5 +1,5 @@
 #!/bin/sh
-# TD3 29-34 tune start_timesteps & stay_reward
+# result and plot: TD3 29-34 tune start_timesteps & stay_reward
 
 #python3 train.py -trial 19 -seed 0 -type SAC -env_dt 0.2
 #python3 train.py -trial 19 -seed 1 -type SAC -env_dt 0.2
