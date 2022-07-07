@@ -3,7 +3,8 @@ import torch
 import numpy as np
 import argparse
 import matplotlib.pyplot as plt
-from Pendulum_v3_mirror import *
+#from Pendulum_v3_mirror import *
+from Pendulum_v4 import *
 from files.Agent import Agent
 import utils
 import TD3
