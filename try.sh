@@ -1,24 +1,24 @@
 #!/bin/sh
-# SAC 22,23 not mirror(Pendulum_v4), env_dt 0.05,0.1(debugged)
+# result and plot, SAC 22,23 not mirror(Pendulum_v4), env_dt 0.05,0.1(debugged)
 
-python3 train.py -trial 22 -seed 0 -type SAC -env_dt 0.05
-python3 train.py -trial 22 -seed 1 -type SAC -env_dt 0.05
-python3 train.py -trial 22 -seed 2 -type SAC -env_dt 0.05
-python3 train.py -trial 22 -seed 3 -type SAC -env_dt 0.05
-python3 train.py -trial 22 -seed 4 -type SAC -env_dt 0.05
-python3 plot_graph.py -trial 22 -type SAC
+# python3 train.py -trial 22 -seed 0 -type SAC -env_dt 0.05
+# python3 train.py -trial 22 -seed 1 -type SAC -env_dt 0.05
+# python3 train.py -trial 22 -seed 2 -type SAC -env_dt 0.05
+# python3 train.py -trial 22 -seed 3 -type SAC -env_dt 0.05
+# python3 train.py -trial 22 -seed 4 -type SAC -env_dt 0.05
+# python3 plot_graph.py -trial 22 -type SAC
 python3 test.py -trial 22 -seed 0 -type SAC -env_dt 0.05
 python3 test.py -trial 22 -seed 1 -type SAC -env_dt 0.05
 python3 test.py -trial 22 -seed 2 -type SAC -env_dt 0.05
 python3 test.py -trial 22 -seed 3 -type SAC -env_dt 0.05
 python3 test.py -trial 22 -seed 4 -type SAC -env_dt 0.05
 
-python3 train.py -trial 23 -seed 0 -type SAC -env_dt 0.1
-python3 train.py -trial 23 -seed 1 -type SAC -env_dt 0.1
-python3 train.py -trial 23 -seed 2 -type SAC -env_dt 0.1
-python3 train.py -trial 23 -seed 3 -type SAC -env_dt 0.1
-python3 train.py -trial 23 -seed 4 -type SAC -env_dt 0.1
-python3 plot_graph.py -trial 23 -type SAC
+# python3 train.py -trial 23 -seed 0 -type SAC -env_dt 0.1
+# python3 train.py -trial 23 -seed 1 -type SAC -env_dt 0.1
+# python3 train.py -trial 23 -seed 2 -type SAC -env_dt 0.1
+# python3 train.py -trial 23 -seed 3 -type SAC -env_dt 0.1
+# python3 train.py -trial 23 -seed 4 -type SAC -env_dt 0.1
+# python3 plot_graph.py -trial 23 -type SAC
 python3 test.py -trial 23 -seed 0 -type SAC -env_dt 0.1
 python3 test.py -trial 23 -seed 1 -type SAC -env_dt 0.1
 python3 test.py -trial 23 -seed 2 -type SAC -env_dt 0.1
