@@ -1,29 +1,78 @@
 #!/bin/sh
-# result and plot, SAC 22,23 not mirror(Pendulum_v4), env_dt 0.05,0.1(debugged)
+# SAC 24-28 tune q2dot weight(only base + q2dot)(pendulum v4 -> v3_mirror)
+# SAC 29 q1+q1dot+dtau: normalize reward
 
-# python3 train.py -trial 22 -seed 0 -type SAC -env_dt 0.05
-# python3 train.py -trial 22 -seed 1 -type SAC -env_dt 0.05
-# python3 train.py -trial 22 -seed 2 -type SAC -env_dt 0.05
-# python3 train.py -trial 22 -seed 3 -type SAC -env_dt 0.05
-# python3 train.py -trial 22 -seed 4 -type SAC -env_dt 0.05
-# python3 plot_graph.py -trial 22 -type SAC
-python3 test.py -trial 22 -seed 0 -type SAC -env_dt 0.05
-python3 test.py -trial 22 -seed 1 -type SAC -env_dt 0.05
-python3 test.py -trial 22 -seed 2 -type SAC -env_dt 0.05
-python3 test.py -trial 22 -seed 3 -type SAC -env_dt 0.05
-python3 test.py -trial 22 -seed 4 -type SAC -env_dt 0.05
+python3 train.py -trial 24 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 train.py -trial 24 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 train.py -trial 24 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 train.py -trial 24 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 train.py -trial 24 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 plot_graph.py -trial 24 -type SAC
+python3 test.py -trial 24 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 test.py -trial 24 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 test.py -trial 24 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 test.py -trial 24 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.1
+python3 test.py -trial 24 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.1
 
-# python3 train.py -trial 23 -seed 0 -type SAC -env_dt 0.1
-# python3 train.py -trial 23 -seed 1 -type SAC -env_dt 0.1
-# python3 train.py -trial 23 -seed 2 -type SAC -env_dt 0.1
-# python3 train.py -trial 23 -seed 3 -type SAC -env_dt 0.1
-# python3 train.py -trial 23 -seed 4 -type SAC -env_dt 0.1
-# python3 plot_graph.py -trial 23 -type SAC
-python3 test.py -trial 23 -seed 0 -type SAC -env_dt 0.1
-python3 test.py -trial 23 -seed 1 -type SAC -env_dt 0.1
-python3 test.py -trial 23 -seed 2 -type SAC -env_dt 0.1
-python3 test.py -trial 23 -seed 3 -type SAC -env_dt 0.1
-python3 test.py -trial 23 -seed 4 -type SAC -env_dt 0.1
+python3 train.py -trial 25 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 train.py -trial 25 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 train.py -trial 25 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 train.py -trial 25 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 train.py -trial 25 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 plot_graph.py -trial 25 -type SAC
+python3 test.py -trial 25 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 test.py -trial 25 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 test.py -trial 25 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 test.py -trial 25 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.01
+python3 test.py -trial 25 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.01
+
+python3 train.py -trial 26 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 train.py -trial 26 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 train.py -trial 26 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 train.py -trial 26 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 train.py -trial 26 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 plot_graph.py -trial 26 -type SAC
+python3 test.py -trial 26 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 test.py -trial 26 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 test.py -trial 26 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 test.py -trial 26 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.001
+python3 test.py -trial 26 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.001
+
+python3 train.py -trial 27 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 train.py -trial 27 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 train.py -trial 27 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 train.py -trial 27 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 train.py -trial 27 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 plot_graph.py -trial 27 -type SAC
+python3 test.py -trial 27 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 test.py -trial 27 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 test.py -trial 27 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 test.py -trial 27 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+python3 test.py -trial 27 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.0001
+
+python3 train.py -trial 28 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 train.py -trial 28 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 train.py -trial 28 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 train.py -trial 28 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 train.py -trial 28 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 plot_graph.py -trial 28 -type SAC
+python3 test.py -trial 28 -seed 0 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 test.py -trial 28 -seed 1 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 test.py -trial 28 -seed 2 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 test.py -trial 28 -seed 3 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+python3 test.py -trial 28 -seed 4 -type SAC -env_dt 0.05 -w_q2dot 0.00001
+
+python3 train.py -trial 29 -seed 0 -type SAC -env_dt 0.05 -norm_reward 1
+python3 train.py -trial 29 -seed 1 -type SAC -env_dt 0.05 -norm_reward 1
+python3 train.py -trial 29 -seed 2 -type SAC -env_dt 0.05 -norm_reward 1
+python3 train.py -trial 29 -seed 3 -type SAC -env_dt 0.05 -norm_reward 1
+python3 train.py -trial 29 -seed 4 -type SAC -env_dt 0.05 -norm_reward 1
+python3 plot_graph.py -trial 29 -type SAC
+python3 test.py -trial 29 -seed 0 -type SAC -env_dt 0.05 -norm_reward 1
+python3 test.py -trial 29 -seed 1 -type SAC -env_dt 0.05 -norm_reward 1
+python3 test.py -trial 29 -seed 2 -type SAC -env_dt 0.05 -norm_reward 1
+python3 test.py -trial 29 -seed 3 -type SAC -env_dt 0.05 -norm_reward 1
+python3 test.py -trial 29 -seed 4 -type SAC -env_dt 0.05 -norm_reward 1
 
 #python3 train.py -trial 21 -seed 0 -type SAC -env_dt 0.03
 #python3 train.py -trial 21 -seed 1 -type SAC -env_dt 0.03

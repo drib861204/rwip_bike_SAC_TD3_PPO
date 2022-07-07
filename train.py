@@ -5,8 +5,8 @@ import torch
 import numpy as np
 import argparse
 from collections import deque
-#from Pendulum_v3_mirror import *
-from Pendulum_v4 import *
+from Pendulum_v3_mirror import *
+#from Pendulum_v4 import *
 from files.Agent import Agent
 import utils
 import TD3
@@ -30,6 +30,7 @@ parser.add_argument("-to_last_frame", type=int, default=0, help="0: stop when ev
 parser.add_argument("-env_dt", type=float, default=0.005, help="timestep")
 parser.add_argument("-up_step", type=int, default=2000, help="PPO update timestep")
 parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained for staying in the range")
+parser.add_argument("-norm_reward", type=int, default=0, help="0: nothing, 1: normalize reward")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -160,7 +161,7 @@ def train():
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render, args.env_dt, args.stay_reward)
+    env = Pendulum(args.render, args.env_dt, args.w_q2dot, args.norm_reward)
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
