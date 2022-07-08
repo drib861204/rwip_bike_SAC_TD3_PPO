@@ -1,5 +1,5 @@
 #!/bin/sh
-# PPO 21: cancel done cost, self.max_q1 = 10*pi/180
+# FIN: PPO 21: cancel done cost, self.max_q1 = 10*pi/180
 
 #python3 train.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
 #python3 train.py -trial 30 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
