@@ -198,9 +198,9 @@ if __name__ == "__main__":
 
     elif args.type == "PPO":
         action_std = 0.6  # starting std for action distribution (Multivariate Normal)
-        action_std_decay_rate = 0.05  # linearly decay action_std (action_std = action_std - action_std_decay_rate)
+        action_std_decay_rate = 0.1 #0.05  # linearly decay action_std (action_std = action_std - action_std_decay_rate)
         min_action_std = 0.1  # minimum action_std (stop decay after action_std <= min_action_std)
-        action_std_decay_freq = args.frames / 10  # int(2.5e5)  # action_std decay frequency (in num timesteps)
+        action_std_decay_freq = args.frames / 20 #10  # int(2.5e5)  # action_std decay frequency (in num timesteps)
         update_timestep = args.up_step #2000
         K_epochs = 80
         eps_clip = 0.2
