@@ -1,5 +1,5 @@
 #!/bin/sh
-# FIN: PPO 19: action_std = 0.4
+# PPO 20: cancel done cost
 
 #python3 train.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
 #python3 train.py -trial 30 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
@@ -169,17 +169,17 @@
 #python3 test.py -trial 34 -seed 3 -type TD3 -stay_reward 0.3
 #python3 test.py -trial 34 -seed 4 -type TD3 -stay_reward 0.3
 
-python3 train.py -trial 19 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
-python3 train.py -trial 19 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
-python3 train.py -trial 19 -seed 2 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
-python3 train.py -trial 19 -seed 3 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
-python3 train.py -trial 19 -seed 4 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
-python3 plot_graph.py -trial 19 -type PPO
-python3 test.py -trial 19 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
-python3 test.py -trial 19 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
-python3 test.py -trial 19 -seed 2 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
-python3 test.py -trial 19 -seed 3 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
-python3 test.py -trial 19 -seed 4 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 train.py -trial 20 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 train.py -trial 20 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 train.py -trial 20 -seed 2 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 train.py -trial 20 -seed 3 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 train.py -trial 20 -seed 4 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 plot_graph.py -trial 20 -type PPO
+python3 test.py -trial 20 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 test.py -trial 20 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 test.py -trial 20 -seed 2 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 test.py -trial 20 -seed 3 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 test.py -trial 20 -seed 4 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
 
 #python3 train.py -trial 17 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
 #python3 train.py -trial 17 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000

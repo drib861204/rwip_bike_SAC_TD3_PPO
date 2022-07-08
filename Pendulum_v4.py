@@ -257,11 +257,11 @@ class Pendulum(gym.Env):
 
         #costs -= self.stay_reward # gain reward for staying in the range
 
-        if done:
+        '''if done:
             if not self.grad_done_cost:
                 costs += 100
             else:
-                costs += (self.rep_max-rep)
+                costs += (self.rep_max-rep)'''
 
         #if abs(q1) < 0.001 and abs(q1_dot) < 0.001 and abs(q2_dot) < 0.1 :
         #    costs -= 1000
