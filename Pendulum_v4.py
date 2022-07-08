@@ -21,16 +21,20 @@ from gym import spaces, logger
 
 
 class Pendulum(gym.Env):
-    def __init__(self, rend, env_dt, stay_reward):
+    def __init__(self, args):
         #self.frames = frames
         #self.interval_num = interval_num
         #self.cur_case = 1
-        #self.weight_tau = w_tau
         #self.w_q1 = w_q1
         #self.done_cost = done_cost
-        #self.w_q2dot = w_q2dot
         #self.log_norm = log_norm
-        self.stay_reward = stay_reward
+        #self.stay_reward = stay_reward
+        self.w_q2dot = args.w_q2dot
+        self.w_tau = args.w_tau
+        self.w_dtau = args.w_dtau
+        self.reward_function = args.reward_function
+        self.rep_max = 500
+        self.grad_done_cost = args.grad_done_cost
 
         self.theta_rod = 0
         self.theta_wheel = 0
@@ -55,7 +59,7 @@ class Pendulum(gym.Env):
         #print(self.momentum_wheel)
 
         self.momentum_rod = 0.95
-        self.dt = env_dt #0.005
+        self.dt = args.env_dt #0.005
         self.gravity = 9.81
         self.max_q1 = 3.5*pi/180 # stop training below this angle
         self.max_q1dot = 0.3 #initial q1_dot default 0.3? to be verified
@@ -84,7 +88,7 @@ class Pendulum(gym.Env):
         self.origin_y = height//2
         self.POS = np.array([self.origin_x, self.origin_y])
 
-        if rend:
+        if args.render:
             pygame.init()
             self.screen = pygame.display.set_mode((width, height))
             pygame.display.set_caption("Pendulum Simulation")
@@ -163,7 +167,7 @@ class Pendulum(gym.Env):
         pygame.display.update()
 
 
-    def step(self, action):
+    def step(self, action, rep=-1):
         q1, q1_dot, q2_dot = self.state
         q1 = angle_normalize(q1)
 
@@ -224,21 +228,40 @@ class Pendulum(gym.Env):
         self.theta_wheel_dot = q2_dot
         self.torque = torque
 
-        # costs = 100 * q1 ** 2
-        # costs = q1_dot ** 2
-        # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2
-        costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2
-        # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2 + self.w_q2dot * q2_dot**2
-        # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2 + self.weight_tau * torque**2
-        # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.weight_tau * torque ** 2
-        # costs = 1000 * q1 ** 2 + 0.1 * q1_dot ** 2 + 0.001 * torque ** 2 + 0.00001 * q2_dot**2
-        # costs = 100 * q1 ** 2 + 0.00001 * q2_dot ** 2
-        # costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + 100 * torque ** 2 + 0.001 * q2_dot ** 2
+        if self.reward_function == 0:
+            costs = 100 * q1 ** 2 + 1 * q1_dot ** 2
 
-        costs -= self.stay_reward # gain reward for staying in the range
+        elif self.reward_function == 1:
+            costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_q2dot * q2_dot ** 2
+
+        elif self.reward_function == 2:
+            costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_tau * torque ** 2
+
+        elif self.reward_function == 3:
+            costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_q2dot * q2_dot ** 2 + self.w_tau * torque ** 2
+
+        elif self.reward_function == 4:
+            costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_dtau * (self.last_torque - torque) ** 2
+
+        elif self.reward_function == 5:
+            costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_dtau * (self.last_torque - torque) ** 2\
+                    + self.w_q2dot * q2_dot ** 2
+
+        elif self.reward_function == 6:
+            costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_dtau * (self.last_torque - torque) ** 2\
+                    + self.w_tau * torque ** 2
+
+        elif self.reward_function == 7:
+            costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_dtau * (self.last_torque - torque) ** 2\
+                    + self.w_q2dot * q2_dot ** 2 + self.w_tau * torque ** 2
+
+        #costs -= self.stay_reward # gain reward for staying in the range
 
         if done:
-            costs += 100
+            if not self.grad_done_cost:
+                costs += 100
+            else:
+                costs += (self.rep_max-rep)
 
         #if abs(q1) < 0.001 and abs(q1_dot) < 0.001 and abs(q2_dot) < 0.1 :
         #    costs -= 1000

@@ -5,8 +5,8 @@ import torch
 import numpy as np
 import argparse
 from collections import deque
-from Pendulum_v3_mirror import *
-#from Pendulum_v4 import *
+#from Pendulum_v3_mirror import *
+from Pendulum_v4 import *
 from files.Agent import Agent
 import utils
 import TD3
@@ -18,19 +18,23 @@ parser = argparse.ArgumentParser(description="")
 parser.add_argument("-type", type=str, default=None, help="SAC, TD3, PPO")
 parser.add_argument("-trial", type=int, default=0, help="trial")
 parser.add_argument("-seed", type=int, default=0, help="Seed for the env and torch network weights, default is 0")
-parser.add_argument("-frames", type=int, default=2e5, help="frames")
+parser.add_argument("-frames", type=int, default=5e4, help="frames")
 parser.add_argument("-w_q1", type=int, default=100, help="q1 weight")
 parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for actor network")
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
 parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help="Rendering the evaluation runs if set to 1, default=0")
 parser.add_argument("-done_cost", type=int, default=100, help="done cost")
 parser.add_argument("-w_q2dot", type=float, default=0.0, help="q2 dot weight")
+parser.add_argument("-w_tau", type=float, default=0.0, help="torque weight")
+parser.add_argument("-w_dtau", type=float, default=0.0, help="diff torque weight")
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
-parser.add_argument("-to_last_frame", type=int, default=0, help="0: stop when eval_reward is high, 1: train till the last frame")
-parser.add_argument("-env_dt", type=float, default=0.005, help="timestep")
+parser.add_argument("-to_last_frame", type=int, default=1, help="0: stop when eval_reward is high, 1: train till the last frame")
+parser.add_argument("-env_dt", type=float, default=0.05, help="timestep")
 parser.add_argument("-up_step", type=int, default=2000, help="PPO update timestep")
 parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained for staying in the range")
 parser.add_argument("-norm_reward", type=int, default=0, help="0: nothing, 1: normalize reward")
+parser.add_argument("-reward_function", type=int, default=0, help="choose reward function")
+parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=100, 1: graduate done cost")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -113,7 +117,7 @@ def train():
 
         if args.type == "SAC":
             action = agent.act(state)
-            next_state, reward, done, _ = env.step(action)
+            next_state, reward, done, _ = env.step(action, rep)
             #if done or rep >= rep_max:
             agent.step(state, action, reward, next_state, [done], frame, 0)
             #else:
@@ -161,7 +165,7 @@ def train():
 
 if __name__ == "__main__":
 
-    env = Pendulum(args.render, args.env_dt, args.w_q2dot, args.norm_reward)
+    env = Pendulum(args)
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)

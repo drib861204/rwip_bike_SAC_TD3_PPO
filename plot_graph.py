@@ -125,12 +125,12 @@ def save_graph():
         new_handles = []
         new_labels = []
         for i in range(len(handles)):
-            if(i%2 == 0):
-                new_handles.append(handles[i])
-                new_labels.append(labels[i])
+            #if(i%2 == 0):
+            new_handles.append(handles[i])
+            new_labels.append(labels[i])
         ax.legend(new_handles, new_labels, loc=4)
 
-        ############eval plot############
+        '''############eval plot############
         for i, run in enumerate(eval_runs):
             # plot the lines
             run.plot(kind='line', x='timestep', y='eval_reward',ax=ax_eval,color=colors[i % len(colors)],  linewidth=1.5, alpha=0.2)
@@ -143,7 +143,7 @@ def save_graph():
             new_handles.append(handles[i])
             new_labels.append(labels[i])
         ax_eval.legend(new_handles, new_labels, loc=4)
-        #################################
+        #################################'''
 
     # ax.set_yticks(np.arange(0, 1800, 200))
     # ax.set_xticks(np.arange(0, int(4e6), int(5e5)))
