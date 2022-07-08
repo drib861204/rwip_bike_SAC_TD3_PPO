@@ -1,30 +1,29 @@
 #!/bin/sh
-# FIN
-# SAC 30,31 q1+q1dot+q2dot, w_q2dot=0.001, if done: costs+=(rep_max-rep) (Pendulum v4)
+# PPO 16,17 q1+q1dot+q2dot, w_q2dot=0.001, tune env_dt 0.005, 0.05, (Pendulum v4)
 
-python3 train.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 train.py -trial 30 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 train.py -trial 30 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 train.py -trial 30 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 train.py -trial 30 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 plot_graph.py -trial 30 -type SAC
-python3 test.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 test.py -trial 30 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 test.py -trial 30 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 test.py -trial 30 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
-python3 test.py -trial 30 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 train.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 train.py -trial 30 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 train.py -trial 30 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 train.py -trial 30 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 train.py -trial 30 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 plot_graph.py -trial 30 -type SAC
+#python3 test.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 test.py -trial 30 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 test.py -trial 30 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 test.py -trial 30 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
+#python3 test.py -trial 30 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
 
-python3 train.py -trial 31 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 train.py -trial 31 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 train.py -trial 31 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 train.py -trial 31 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 train.py -trial 31 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 plot_graph.py -trial 31 -type SAC
-python3 test.py -trial 31 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 test.py -trial 31 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 test.py -trial 31 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 test.py -trial 31 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
-python3 test.py -trial 31 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 train.py -trial 31 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 train.py -trial 31 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 train.py -trial 31 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 train.py -trial 31 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 train.py -trial 31 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 plot_graph.py -trial 31 -type SAC
+#python3 test.py -trial 31 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 test.py -trial 31 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 test.py -trial 31 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 test.py -trial 31 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
+#python3 test.py -trial 31 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 1
 
 #python3 train.py -trial 25 -seed 0 -type SAC -w_q2dot 0.01
 #python3 train.py -trial 25 -seed 1 -type SAC -w_q2dot 0.01
@@ -170,29 +169,29 @@ python3 test.py -trial 31 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -g
 #python3 test.py -trial 34 -seed 3 -type TD3 -stay_reward 0.3
 #python3 test.py -trial 34 -seed 4 -type TD3 -stay_reward 0.3
 
-#python3 train.py -trial 13 -seed 0 -type PPO -env_dt 0.001
-#python3 train.py -trial 13 -seed 1 -type PPO -env_dt 0.001
-#python3 train.py -trial 13 -seed 2 -type PPO -env_dt 0.001
-#python3 train.py -trial 13 -seed 3 -type PPO -env_dt 0.001
-#python3 train.py -trial 13 -seed 4 -type PPO -env_dt 0.001
-#python3 plot_graph.py -trial 13 -type PPO
-#python3 test.py -trial 13 -seed 0 -type PPO -env_dt 0.001
-#python3 test.py -trial 13 -seed 1 -type PPO -env_dt 0.001
-#python3 test.py -trial 13 -seed 2 -type PPO -env_dt 0.001
-#python3 test.py -trial 13 -seed 3 -type PPO -env_dt 0.001
-#python3 test.py -trial 13 -seed 4 -type PPO -env_dt 0.001
+python3 train.py -trial 16 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005 -frames 100000
+python3 train.py -trial 16 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005 -frames 100000
+python3 train.py -trial 16 -seed 2 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005 -frames 100000
+python3 train.py -trial 16 -seed 3 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005 -frames 100000
+python3 train.py -trial 16 -seed 4 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005 -frames 100000
+python3 plot_graph.py -trial 16 -type PPO
+python3 test.py -trial 16 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005
+python3 test.py -trial 16 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005
+python3 test.py -trial 16 -seed 2 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005
+python3 test.py -trial 16 -seed 3 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005
+python3 test.py -trial 16 -seed 4 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.005
 
-#python3 train.py -trial 14 -seed 0 -type PPO -env_dt 0.01
-#python3 train.py -trial 14 -seed 1 -type PPO -env_dt 0.01
-#python3 train.py -trial 14 -seed 2 -type PPO -env_dt 0.01
-#python3 train.py -trial 14 -seed 3 -type PPO -env_dt 0.01
-#python3 train.py -trial 14 -seed 4 -type PPO -env_dt 0.01
-#python3 plot_graph.py -trial 14 -type PPO
-#python3 test.py -trial 14 -seed 0 -type PPO -env_dt 0.01
-#python3 test.py -trial 14 -seed 1 -type PPO -env_dt 0.01
-#python3 test.py -trial 14 -seed 2 -type PPO -env_dt 0.01
-#python3 test.py -trial 14 -seed 3 -type PPO -env_dt 0.01
-#python3 test.py -trial 14 -seed 4 -type PPO -env_dt 0.01
+python3 train.py -trial 17 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 train.py -trial 17 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 train.py -trial 17 -seed 2 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 train.py -trial 17 -seed 3 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 train.py -trial 17 -seed 4 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05 -frames 100000
+python3 plot_graph.py -trial 17 -type PPO
+python3 test.py -trial 17 -seed 0 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 test.py -trial 17 -seed 1 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 test.py -trial 17 -seed 2 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 test.py -trial 17 -seed 3 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
+python3 test.py -trial 17 -seed 4 -type PPO -reward_function 1 -w_q2dot 0.001 -env_dt 0.05
 
 #python3 train.py -trial 15 -seed 0 -type PPO -env_dt 0.03
 #python3 train.py -trial 15 -seed 1 -type PPO -env_dt 0.03
