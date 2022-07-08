@@ -259,7 +259,8 @@ class Pendulum(gym.Env):
 
         #costs -= self.stay_reward # gain reward for staying in the range
 
-        costs += 100
+        if done:
+            costs += 100
         '''if done:
             if not self.grad_done_cost:
                 costs += 100
