@@ -1,5 +1,5 @@
 #!/bin/sh
-# PPO 16,17 q1+q1dot+q2dot, w_q2dot=0.001, tune env_dt 0.005, 0.05, (Pendulum v4)
+# FIN PPO 16,17 q1+q1dot+q2dot, w_q2dot=0.001, tune env_dt 0.005, 0.05, (Pendulum v4)
 
 #python3 train.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
 #python3 train.py -trial 30 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
