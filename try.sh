@@ -1,4 +1,5 @@
 #!/bin/sh
+# FIN
 # SAC 30,31 q1+q1dot+q2dot, w_q2dot=0.001, if done: costs+=(rep_max-rep) (Pendulum v4)
 
 python3 train.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
