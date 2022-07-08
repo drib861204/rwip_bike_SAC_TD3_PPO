@@ -1,5 +1,5 @@
 #!/bin/sh
-# PPO 18: action_std_decay_rate = 0.1, action_std_decay_freq = args.frames / 20
+# FIN: PPO 18: action_std_decay_rate = 0.1, action_std_decay_freq = args.frames / 20
 
 #python3 train.py -trial 30 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
 #python3 train.py -trial 30 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -grad_done_cost 0
