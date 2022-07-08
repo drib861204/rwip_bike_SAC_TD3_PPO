@@ -1,4 +1,5 @@
 #!/bin/sh
+# result and plot
 # SAC 24-28 tune q2dot weight(only base + q2dot)(pendulum v4 -> v3_mirror)
 # SAC 29 q1+q1dot+dtau: normalize reward
 
