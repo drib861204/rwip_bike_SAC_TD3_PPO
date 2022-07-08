@@ -61,7 +61,7 @@ class Pendulum(gym.Env):
         self.momentum_rod = 0.95
         self.dt = args.env_dt #0.005
         self.gravity = 9.81
-        self.max_q1 = 3.5*pi/180 # stop training below this angle
+        self.max_q1 = 10*pi/180 # 3.5*pi/180 # stop training below this angle
         self.max_q1dot = 0.3 #initial q1_dot default 0.3? to be verified
 
         self.wheel_max_speed = 28
@@ -119,6 +119,7 @@ class Pendulum(gym.Env):
             self.agent_state = np.array([abs(reset_angle_random), 0, 0], dtype=np.float32)
         #else:
         elif mode == "test":
+            self.ang = 1.5 * pi / 180
             self.state = np.array([self.ang, 0, 0], dtype=np.float32)
             self.agent_state = np.array([abs(self.ang), 0, 0], dtype=np.float32)
             # self.state = np.array([0, self.max_q1dot, 0],dtype=np.float32)
