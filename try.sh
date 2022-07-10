@@ -1,5 +1,5 @@
 #!/bin/sh
-# FIN PPO 23
+# FIN 
 # PPO 24-26, tune K_epochs
 
 # python3 train.py -trial 37 -seed 0 -type TD3 -reward_function 1 -w_q2dot 0.001 --start_timesteps 200
