@@ -1,5 +1,5 @@
 #!/bin/sh
-# TD3 37-39, PPO 22, q1,q1dot,q2dot, w_q2dot 0.001
+# FIN: TD3 37-39, PPO 22, q1,q1dot,q2dot, w_q2dot 0.001
 
 python3 train.py -trial 37 -seed 0 -type TD3 -reward_function 1 -w_q2dot 0.001 --start_timesteps 200
 python3 train.py -trial 37 -seed 1 -type TD3 -reward_function 1 -w_q2dot 0.001 --start_timesteps 200
