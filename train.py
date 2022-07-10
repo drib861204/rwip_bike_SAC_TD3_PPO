@@ -146,8 +146,8 @@ def train():
             agent.buffer.is_terminals.append(done)
             if frame % update_timestep == 0:
                 agent.update()
-            if frame % action_std_decay_freq == 0:
-                agent.decay_action_std(action_std_decay_rate, min_action_std)
+            #if frame % action_std_decay_freq == 0:
+            #    agent.decay_action_std(action_std_decay_rate, min_action_std)
 
         episode_reward += reward
 
@@ -197,7 +197,7 @@ if __name__ == "__main__":
         replay_buffer = utils.ReplayBuffer(state_size, action_size)
 
     elif args.type == "PPO":
-        action_std = 0.6  # starting std for action distribution (Multivariate Normal)
+        action_std = 0.1 #0.6  # starting std for action distribution (Multivariate Normal)
         action_std_decay_rate = 0.05  # linearly decay action_std (action_std = action_std - action_std_decay_rate)
         min_action_std = 0.1  # minimum action_std (stop decay after action_std <= min_action_std)
         action_std_decay_freq = args.frames / 10  # int(2.5e5)  # action_std decay frequency (in num timesteps)
