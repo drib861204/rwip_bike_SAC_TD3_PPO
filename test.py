@@ -31,6 +31,8 @@ parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained
 parser.add_argument("-norm_reward", type=int, default=0, help="0: nothing, 1: normalize reward")
 parser.add_argument("-reward_function", type=int, default=0, help="choose reward function")
 parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=100, 1: graduate done cost")
+parser.add_argument("-continued_training", type=int, default=0, help="0: train from the start, 1: train from existing model")
+parser.add_argument("-I_rod_ratio", type=float, default=1.0)
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],

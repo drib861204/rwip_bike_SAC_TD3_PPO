@@ -34,6 +34,8 @@ parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained
 parser.add_argument("-norm_reward", type=int, default=0, help="0: nothing, 1: normalize reward")
 parser.add_argument("-reward_function", type=int, default=0, help="choose reward function")
 parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=100, 1: graduate done cost")
+parser.add_argument("-continued_training", type=int, default=0, help="0: train from the start, 1: train from existing model")
+parser.add_argument("-I_rod_ratio", type=float, default=1.0)
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -186,6 +188,8 @@ if __name__ == "__main__":
 
     if args.type == "SAC":
         agent = Agent(state_size=state_size, action_size=action_size, args=args, device=device)
+        if args.continued_training:
+            agent.actor_local.load_state_dict(torch.load(f"runs_SAC/rwip34/rwip34_{args.seed}.pth", map_location=device))
 
     elif args.type == "TD3":
         max_action = float(env.action_space.high[0])

@@ -59,6 +59,8 @@ class Pendulum(gym.Env):
         #print(self.momentum_wheel)
 
         self.momentum_rod = 0.95
+        if args.continued_training:
+            self.momentum_rod *= args.I_rod_ratio
         self.dt = args.env_dt #0.005
         self.gravity = 9.81
         self.max_q1 = 3.5*pi/180 # stop training below this angle
