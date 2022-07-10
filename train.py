@@ -30,7 +30,6 @@ parser.add_argument("-w_dtau", type=float, default=0.0, help="diff torque weight
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 parser.add_argument("-to_last_frame", type=int, default=1, help="0: stop when eval_reward is high, 1: train till the last frame")
 parser.add_argument("-env_dt", type=float, default=0.05, help="timestep")
-parser.add_argument("-up_step", type=int, default=2000, help="PPO update timestep")
 parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained for staying in the range")
 parser.add_argument("-norm_reward", type=int, default=0, help="0: nothing, 1: normalize reward")
 parser.add_argument("-reward_function", type=int, default=0, help="choose reward function")
@@ -68,6 +67,15 @@ parser.add_argument("--policy_noise", default=0.2, type=float)  # Noise added to
 parser.add_argument("--noise_clip", default=0.5, type=float)  # Range to clip target policy noise
 parser.add_argument("--policy_freq", default=2, type=int)  # Frequency of delayed policy updates
 #parser.add_argument("-lr", default=1e-3, type=float, help="learning rate")
+
+#PPO arguments
+parser.add_argument("--action_std", default=0.6, type=float)  # starting std for action distribution (Multivariate Normal)
+parser.add_argument("--action_std_decay_rate", default=0.05, type=float)  # linearly decay action_std (action_std = action_std - action_std_decay_rate)
+parser.add_argument("--min_action_std", default=0.1, type=float)  # minimum action_std (stop decay after action_std <= min_action_std)
+parser.add_argument("--action_std_decay_freq", default=10000, type=int)  # int(2.5e5)  # action_std decay frequency (in num timesteps)
+parser.add_argument("--up_step", type=int, default=2000, help="PPO update timestep")
+parser.add_argument("--K_epochs", type=int, default=80)
+parser.add_argument("--eps_clip", type=float, default=0.2)
 
 args = parser.parse_args()
 
@@ -146,8 +154,8 @@ def train():
             agent.buffer.is_terminals.append(done)
             if frame % update_timestep == 0:
                 agent.update()
-            #if frame % action_std_decay_freq == 0:
-            #    agent.decay_action_std(action_std_decay_rate, min_action_std)
+            if frame % action_std_decay_freq == 0:
+                agent.decay_action_std(action_std_decay_rate, min_action_std)
 
         episode_reward += reward
 
@@ -197,17 +205,14 @@ if __name__ == "__main__":
         replay_buffer = utils.ReplayBuffer(state_size, action_size)
 
     elif args.type == "PPO":
-        action_std = 0.1 #0.6  # starting std for action distribution (Multivariate Normal)
-        action_std_decay_rate = 0.05  # linearly decay action_std (action_std = action_std - action_std_decay_rate)
-        min_action_std = 0.1  # minimum action_std (stop decay after action_std <= min_action_std)
-        action_std_decay_freq = args.frames / 10  # int(2.5e5)  # action_std decay frequency (in num timesteps)
-        update_timestep = args.up_step #2000
-        K_epochs = 80
-        eps_clip = 0.2
-        gamma = args.gamma
+        action_std = args.action_std
+        action_std_decay_rate = args.action_std_decay_rate
+        min_action_std = args.min_action_std
+        action_std_decay_freq = args.action_std_decay_freq
+        update_timestep = args.up_step
         lr_actor = args.lr_a
         lr_critic = args.lr_c
-        agent = PPO(state_size, action_size, lr_actor, lr_critic, gamma, K_epochs, eps_clip, True, action_std)
+        agent = PPO(state_size, action_size, lr_actor, lr_critic, args.gamma, args.K_epochs, args.eps_clip, True, action_std)
 
     ###################### logging ######################
     log_dir = f"runs_{args.type}/rwip{args.trial}"

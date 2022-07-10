@@ -27,7 +27,6 @@ parser.add_argument("-w_dtau", type=float, default=0.0, help="diff torque weight
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 parser.add_argument("-to_last_frame", type=int, default=1, help="0: stop when eval_reward is high, 1: train till the last frame")
 parser.add_argument("-env_dt", type=float, default=0.05, help="timestep")
-parser.add_argument("-up_step", type=int, default=2000, help="PPO update timestep")
 parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained for staying in the range")
 parser.add_argument("-norm_reward", type=int, default=0, help="0: nothing, 1: normalize reward")
 parser.add_argument("-reward_function", type=int, default=0, help="choose reward function")
@@ -65,6 +64,15 @@ parser.add_argument("--policy_noise", default=0.2, type=float)  # Noise added to
 parser.add_argument("--noise_clip", default=0.5, type=float)  # Range to clip target policy noise
 parser.add_argument("--policy_freq", default=2, type=int)  # Frequency of delayed policy updates
 #parser.add_argument("-lr", default=3e-4, type=float, help="learning rate")
+
+#PPO arguments
+parser.add_argument("--action_std", default=0.6, type=float)  # starting std for action distribution (Multivariate Normal)
+parser.add_argument("--action_std_decay_rate", default=0.05, type=float)  # linearly decay action_std (action_std = action_std - action_std_decay_rate)
+parser.add_argument("--min_action_std", default=0.1, type=float)  # minimum action_std (stop decay after action_std <= min_action_std)
+parser.add_argument("--action_std_decay_freq", default=10000, type=int)  # int(2.5e5)  # action_std decay frequency (in num timesteps)
+parser.add_argument("--up_step", type=int, default=2000, help="PPO update timestep")
+parser.add_argument("--K_epochs", type=int, default=80)
+parser.add_argument("--eps_clip", type=float, default=0.2)
 
 args = parser.parse_args()
 
