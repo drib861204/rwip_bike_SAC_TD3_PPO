@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 45-49 continued_training rwip34, tune I_rod_ratio
+# FIN: SAC 45-49 continued_training rwip34, tune I_rod_ratio
 
 python3 train.py -trial 45 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
 python3 train.py -trial 45 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
