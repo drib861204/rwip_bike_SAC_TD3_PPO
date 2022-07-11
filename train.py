@@ -37,7 +37,7 @@ parser.add_argument("-reward_function", type=int, default=0, help="choose reward
 parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=100, 1: graduate done cost")
 parser.add_argument("-continued_training", type=int, default=0, help="0: train from the start, 1: train from existing model")
 parser.add_argument("-I_rod_ratio", type=float, default=1.0)
-parser.add_argument("-torque_delay", type=int, default=0, help="consider torque delay")
+parser.add_argument("-torque_delay", type=int, default=0, help="consider torque delay. 1: state + last_torque, 2: + last and current torque, 3: original state")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -165,6 +165,7 @@ def train():
             #print("action", action)'''
 
             next_state, reward, done, _ = env.step(action, rep)
+            print("next_state", next_state, type(next_state))
             #if done or rep >= rep_max:
             agent.step(state, action, reward, next_state, [done], frame, 0)
             #else:
@@ -233,8 +234,8 @@ if __name__ == "__main__":
 
     if args.type == "SAC":
         agent = Agent(state_size=state_size, action_size=action_size, args=args, device=device)
-        if args.continued_training:
-            agent.actor_local.load_state_dict(torch.load(f"runs_SAC/rwip34/rwip34_{args.seed}.pth", map_location=device))
+        #if args.continued_training:
+        #    agent.actor_local.load_state_dict(torch.load(f"runs_SAC/rwip34/rwip34_{args.seed}.pth", map_location=device))
 
     elif args.type == "TD3":
         max_action = float(env.action_space.high[0])

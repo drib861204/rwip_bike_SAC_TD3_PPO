@@ -1,17 +1,57 @@
 #!/bin/sh
-# SAC 50 torque delay
+# SAC 50-53 torque delay
 
-python3 train.py -trial 50 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
-python3 train.py -trial 50 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
-python3 train.py -trial 50 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
-python3 train.py -trial 50 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
-python3 train.py -trial 50 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+# no consider torque delay
+python3 train.py -trial 50 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+python3 train.py -trial 50 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+python3 train.py -trial 50 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+python3 train.py -trial 50 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+python3 train.py -trial 50 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
 python3 plot_graph.py -trial 50 -type SAC
-python3 test.py -trial 50 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
-python3 test.py -trial 50 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
-python3 test.py -trial 50 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
-python3 test.py -trial 50 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
-python3 test.py -trial 50 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 50 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+python3 test.py -trial 50 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+python3 test.py -trial 50 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+python3 test.py -trial 50 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+python3 test.py -trial 50 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
+
+# torque delay & state + last torque
+python3 train.py -trial 51 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 train.py -trial 51 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 train.py -trial 51 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 train.py -trial 51 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 train.py -trial 51 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 plot_graph.py -trial 51 -type SAC
+python3 test.py -trial 51 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 51 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 51 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 51 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 51 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+
+# torque delay & state + last torque, current torque
+python3 train.py -trial 52 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 train.py -trial 52 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 train.py -trial 52 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 train.py -trial 52 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 train.py -trial 52 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 plot_graph.py -trial 52 -type SAC
+python3 test.py -trial 52 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 test.py -trial 52 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 test.py -trial 52 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 test.py -trial 52 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+python3 test.py -trial 52 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 2
+
+# torque delay & original state
+python3 train.py -trial 53 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 train.py -trial 53 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 train.py -trial 53 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 train.py -trial 53 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 train.py -trial 53 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 plot_graph.py -trial 53 -type SAC
+python3 test.py -trial 53 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 test.py -trial 53 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 test.py -trial 53 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 test.py -trial 53 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
+python3 test.py -trial 53 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 3
 
 #python3 train.py -trial 46 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
 #python3 train.py -trial 46 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
