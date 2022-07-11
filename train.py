@@ -4,6 +4,7 @@ from datetime import datetime
 import torch
 import numpy as np
 import argparse
+import matplotlib.pyplot as plt
 from collections import deque
 #from Pendulum_v3_mirror import *
 from Pendulum_v4 import *
@@ -36,6 +37,7 @@ parser.add_argument("-reward_function", type=int, default=0, help="choose reward
 parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=100, 1: graduate done cost")
 parser.add_argument("-continued_training", type=int, default=0, help="0: train from the start, 1: train from existing model")
 parser.add_argument("-I_rod_ratio", type=float, default=1.0)
+parser.add_argument("-torque_delay", type=int, default=0, help="consider torque delay")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -82,6 +84,30 @@ parser.add_argument("--eps_clip", type=float, default=0.2)
 args = parser.parse_args()
 
 
+def transient_response(env, state_action_log, type):
+    fig, axs = plt.subplots(4)
+    fig.suptitle(f'{type} Transient Response')
+    t = np.linspace(0, env.dt*(state_action_log.shape[0]-1), state_action_log.shape[0])
+    axs[0].plot(t[1:], state_action_log[1:,0])
+    axs[1].plot(t[1:], state_action_log[1:,1])
+    axs[2].plot(t[1:], state_action_log[1:,2])
+    axs[3].plot(t[1:], state_action_log[1:,3]*env.max_torque)
+    axs[0].set_ylabel('q1(rad)')
+    axs[2].set_ylabel('q2 dot(rad/s)')
+    axs[3].set_ylabel('torque(Nm)')
+    axs[1].set_ylabel('q1 dot(rad/s)')
+    axs[3].set_xlabel('time(s)')
+    #axs[0].set_ylim([-0.065,0.065])
+    #axs[2].set_ylim([-34,34])
+    #axs[3].set_ylim([-24,24])
+    #axs[1].set_ylim([-0.15,0.15])
+    axs[0].get_xaxis().set_visible(False)
+    axs[1].get_xaxis().set_visible(False)
+    axs[2].get_xaxis().set_visible(False)
+    #plt.savefig(f"runs_{type}/rwip{args.trial}/fig/response{args.seed}")
+    #plt.show()
+
+
 def timer(start, end):
     """ Helper to print training time """
     hours, rem = divmod(end - start, 3600)
@@ -106,7 +132,13 @@ def train():
     i_episode = 1
     save_count = 0
 
+    action_delay_buffer = deque(maxlen=2)
+    action_delay_buffer.append(0)
+    action_delay_buffer.append(0)
+
     state = env.reset(mode="train")
+
+    state_action_log = np.zeros((1, 4))
 
     for frame in range(1, int(args.frames) + 1):
         #print(time.time())
@@ -127,6 +159,11 @@ def train():
 
         if args.type == "SAC":
             action = agent.act(state)
+            '''action_cmd = agent.act(state)[0]
+            action_delay_buffer.append(action_cmd)
+            action = [action_delay_buffer[0]]
+            #print("action", action)'''
+
             next_state, reward, done, _ = env.step(action, rep)
             #if done or rep >= rep_max:
             agent.step(state, action, reward, next_state, [done], frame, 0)
@@ -161,6 +198,10 @@ def train():
 
         episode_reward += reward
 
+        state_for_render = env.state
+        state_action = np.append(state_for_render, action)
+        state_action_log = np.concatenate((state_action_log, np.asmatrix(state_action)), axis=0)
+
         if done or rep >= rep_max:
             rep = 0
             print(f"Episode : {i_episode} \t\t Timestep : {frame} \t\t Episode Reward : {episode_reward}")
@@ -169,6 +210,10 @@ def train():
             i_episode += 1
             episode_reward = 0
             state = env.reset(mode="train")
+
+            transient_response(env, state_action_log, args.type)
+            state_action_log = np.zeros((1, 4))
+            action_delay_buffer.append(0)
 
             save_pth()
 

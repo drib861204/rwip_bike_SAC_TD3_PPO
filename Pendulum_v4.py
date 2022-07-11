@@ -35,6 +35,7 @@ class Pendulum(gym.Env):
         self.reward_function = args.reward_function
         self.rep_max = 500
         #self.grad_done_cost = args.grad_done_cost
+        self.torque_delay = args.torque_delay
 
         self.theta_rod = 0
         self.theta_wheel = 0
@@ -75,8 +76,12 @@ class Pendulum(gym.Env):
         self.Ip = self.mass_rod*self.len_rod**2+self.mass_wheel*self.len_wheel**2+self.momentum_rod+self.momentum_wheel
         self.mbarg = (self.mass_rod*self.len_rod+self.mass_wheel*self.len_wheel)*self.gravity
 
-        high = np.array([self.max_q1, self.max_q1dot, self.wheel_max_speed], dtype=np.float32)
-        low = np.array([0, -self.max_q1dot, -self.wheel_max_speed], dtype=np.float32)
+        if self.torque_delay:
+            high = np.array([self.max_q1, self.max_q1dot, self.wheel_max_speed, self.max_torque, self.max_torque], dtype=np.float32)
+            low = np.array([0, -self.max_q1dot, -self.wheel_max_speed, -self.max_torque, -self.max_torque], dtype=np.float32)
+        else:
+            high = np.array([self.max_q1, self.max_q1dot, self.wheel_max_speed], dtype=np.float32)
+            low = np.array([0, -self.max_q1dot, -self.wheel_max_speed], dtype=np.float32)
         self.action_space = spaces.Box(low=-self.max_torque, high=self.max_torque, shape=(1,), dtype=np.float32)
         self.observation_space = spaces.Box(low=low, high=high, dtype=np.float32)
 
@@ -127,7 +132,6 @@ class Pendulum(gym.Env):
             #self.agent_state = np.array([abs(self.ang), 0, 0], dtype=np.float32)
             # self.state = np.array([0, self.max_q1dot, 0],dtype=np.float32)
 
-        #self.last_u = None
         self.last_torque = 0
 
         self.agent_state = self.norm_agent_state(self.state)
@@ -135,6 +139,12 @@ class Pendulum(gym.Env):
         #self.agent_state = self.norm_agent_state(self.agent_state)
         #else:
         #    self.agent_state = self.log_norm_agent_state(self.agent_state)
+
+        if self.torque_delay:
+            #last_torque_norm = (0 - self.max_torque) / (2 * self.max_torque)
+            #torque_norm = (0 - self.max_torque) / (2 * self.max_torque)
+            self.state_delay = np.append(self.agent_state, [-0.5, -0.5])
+            return self.state_delay
 
         return np.array(self.agent_state, dtype=np.float32)
 
@@ -203,8 +213,12 @@ class Pendulum(gym.Env):
         a = self.mbarg*sin(q1)
 
         if abs(q2_dot) <= self.wheel_max_speed:
-            q1_dot = q1_dot + ((a - torque) / (Ip - I2)) * dt
-            q2_dot = q2_dot + ((torque * Ip - a * I2) / I2 / (Ip - I2)) * dt
+            if self.torque_delay:
+                q1_dot = q1_dot + ((a - self.last_torque) / (Ip - I2)) * dt
+                q2_dot = q2_dot + ((self.last_torque * Ip - a * I2) / I2 / (Ip - I2)) * dt
+            else:
+                q1_dot = q1_dot + ((a - self.last_torque) / (Ip - I2)) * dt
+                q2_dot = q2_dot + ((self.last_torque * Ip - a * I2) / I2 / (Ip - I2)) * dt
         #elif abs(q2_dot) > self.wheel_max_speed:
         #    q1_dot = q1_dot
         #    q2_dot = q2_dot
@@ -279,7 +293,6 @@ class Pendulum(gym.Env):
         else:
             costs = 0.000025 * q2_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2'''
 
-        self.last_torque = torque
         self.agent_state = self.norm_agent_state(self.state)
         #if not self.log_norm:
         #self.agent_state = self.norm_agent_state(self.agent_state)
@@ -288,6 +301,14 @@ class Pendulum(gym.Env):
 
         #print("state: ", self.state)
         #print("agent state: ", self.agent_state)
+
+        if self.torque_delay:
+            last_torque_norm = (self.last_torque - self.max_torque) / (2 * self.max_torque)
+            torque_norm = (torque - self.max_torque) / (2 * self.max_torque)
+            self.state_delay = np.append(self.agent_state, [last_torque_norm, torque_norm])
+            return self.state_delay, -costs, done, {}
+
+        self.last_torque = torque
 
         #return state, -costs, False, {}
         return np.array(self.agent_state, dtype=np.float32), -costs, done, {}

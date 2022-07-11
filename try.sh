@@ -1,65 +1,65 @@
 #!/bin/sh
-# FIN: SAC 45-49 continued_training rwip34, tune I_rod_ratio
+# SAC 50 torque delay
 
-python3 train.py -trial 45 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 train.py -trial 45 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 train.py -trial 45 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 train.py -trial 45 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 train.py -trial 45 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 plot_graph.py -trial 45 -type SAC
-python3 test.py -trial 45 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 test.py -trial 45 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 test.py -trial 45 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 test.py -trial 45 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
-python3 test.py -trial 45 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.8
+python3 train.py -trial 50 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 train.py -trial 50 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 train.py -trial 50 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 train.py -trial 50 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 train.py -trial 50 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 plot_graph.py -trial 50 -type SAC
+python3 test.py -trial 50 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 50 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 50 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 50 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
+python3 test.py -trial 50 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 1
 
-python3 train.py -trial 46 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 train.py -trial 46 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 train.py -trial 46 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 train.py -trial 46 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 train.py -trial 46 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 plot_graph.py -trial 46 -type SAC
-python3 test.py -trial 46 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 test.py -trial 46 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 test.py -trial 46 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 test.py -trial 46 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
-python3 test.py -trial 46 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 train.py -trial 46 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 train.py -trial 46 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 train.py -trial 46 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 train.py -trial 46 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 train.py -trial 46 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 plot_graph.py -trial 46 -type SAC
+#python3 test.py -trial 46 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 test.py -trial 46 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 test.py -trial 46 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 test.py -trial 46 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
+#python3 test.py -trial 46 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
 
-python3 train.py -trial 47 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 train.py -trial 47 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 train.py -trial 47 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 train.py -trial 47 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 train.py -trial 47 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 plot_graph.py -trial 47 -type SAC
-python3 test.py -trial 47 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 test.py -trial 47 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 test.py -trial 47 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 test.py -trial 47 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
-python3 test.py -trial 47 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 train.py -trial 47 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 train.py -trial 47 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 train.py -trial 47 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 train.py -trial 47 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 train.py -trial 47 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 plot_graph.py -trial 47 -type SAC
+#python3 test.py -trial 47 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 test.py -trial 47 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 test.py -trial 47 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 test.py -trial 47 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
+#python3 test.py -trial 47 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.0
 
-python3 train.py -trial 48 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 train.py -trial 48 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 train.py -trial 48 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 train.py -trial 48 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 train.py -trial 48 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 plot_graph.py -trial 48 -type SAC
-python3 test.py -trial 48 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 test.py -trial 48 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 test.py -trial 48 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 test.py -trial 48 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
-python3 test.py -trial 48 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 train.py -trial 48 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 train.py -trial 48 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 train.py -trial 48 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 train.py -trial 48 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 train.py -trial 48 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 plot_graph.py -trial 48 -type SAC
+#python3 test.py -trial 48 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 test.py -trial 48 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 test.py -trial 48 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 test.py -trial 48 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
+#python3 test.py -trial 48 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.1
 
-python3 train.py -trial 49 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 train.py -trial 49 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 train.py -trial 49 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 train.py -trial 49 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 train.py -trial 49 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 plot_graph.py -trial 49 -type SAC
-python3 test.py -trial 49 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 test.py -trial 49 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 test.py -trial 49 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 test.py -trial 49 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
-python3 test.py -trial 49 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 train.py -trial 49 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 train.py -trial 49 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 train.py -trial 49 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 train.py -trial 49 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 train.py -trial 49 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 plot_graph.py -trial 49 -type SAC
+#python3 test.py -trial 49 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 test.py -trial 49 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 test.py -trial 49 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 test.py -trial 49 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
+#python3 test.py -trial 49 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 1.2
 
 # python3 train.py -trial 37 -seed 0 -type TD3 -reward_function 1 -w_q2dot 0.001 --start_timesteps 200
 # python3 train.py -trial 37 -seed 1 -type TD3 -reward_function 1 -w_q2dot 0.001 --start_timesteps 200
