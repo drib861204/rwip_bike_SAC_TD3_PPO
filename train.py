@@ -31,7 +31,8 @@ parser.add_argument("-w_dtau", type=float, default=0.0, help="diff torque weight
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 parser.add_argument("-to_last_frame", type=int, default=1, help="0: stop when eval_reward is high, 1: train till the last frame")
 parser.add_argument("-env_dt", type=float, default=0.05, help="timestep")
-parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained for staying in the range")
+parser.add_argument("-stay_reward", type=float, default=1.0, help="reward gained for staying in the range")
+parser.add_argument("-reward_floor", type=int, default=0, help="1: set reward floor")
 parser.add_argument("-norm_reward", type=int, default=0, help="0: nothing, 1: normalize reward")
 parser.add_argument("-reward_function", type=int, default=0, help="choose reward function")
 parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=100, 1: graduate done cost")
@@ -104,8 +105,15 @@ def transient_response(env, state_action_log, type):
     axs[0].get_xaxis().set_visible(False)
     axs[1].get_xaxis().set_visible(False)
     axs[2].get_xaxis().set_visible(False)
-    #plt.savefig(f"runs_{type}/rwip{args.trial}/fig/response{args.seed}")
-    #plt.show()
+
+    '''fig_dir = f"runs_{type}/rwip{args.trial}/fig"
+    if not os.path.exists(fig_dir):
+        os.makedirs(fig_dir)
+    current_num_files = next(os.walk(fig_dir))[2]
+    run_num = len(current_num_files)
+    plt.savefig(fig_dir + f"/response{run_num}")
+    plt.show()
+    plt.close()'''
 
 
 def timer(start, end):
@@ -126,9 +134,12 @@ def save_pth():
 
 def train():
     rep = 0
-    rep_max = 500
+    rep_max = 200 #500
     eval_every = 1000
-    episode_reward = 0
+    if args.reward_floor:
+        episode_reward = -args.stay_reward * rep_max
+    else:
+        episode_reward = 0
     i_episode = 1
     save_count = 0
 
@@ -138,7 +149,7 @@ def train():
 
     state = env.reset(mode="train")
 
-    state_action_log = np.zeros((1, 4))
+    #state_action_log = np.zeros((1, 4))
 
     for frame in range(1, int(args.frames) + 1):
         #print(time.time())
@@ -159,6 +170,7 @@ def train():
 
         if args.type == "SAC":
             action = agent.act(state)
+            action = [-0.5]
             '''action_cmd = agent.act(state)[0]
             action_delay_buffer.append(action_cmd)
             action = [action_delay_buffer[0]]
@@ -198,9 +210,9 @@ def train():
 
         episode_reward += reward
 
-        state_for_render = env.state
-        state_action = np.append(state_for_render, action)
-        state_action_log = np.concatenate((state_action_log, np.asmatrix(state_action)), axis=0)
+        #state_for_render = env.state
+        #state_action = np.append(state_for_render, action)
+        #state_action_log = np.concatenate((state_action_log, np.asmatrix(state_action)), axis=0)
 
         if done or rep >= rep_max:
             rep = 0
@@ -208,11 +220,16 @@ def train():
             log_f.write('{},{},{}\n'.format(i_episode, frame, episode_reward))
             log_f.flush()
             i_episode += 1
-            episode_reward = 0
+
+            if args.reward_floor:
+                episode_reward = -args.stay_reward * rep_max
+            else:
+                episode_reward = 0
+
             state = env.reset(mode="train")
 
-            transient_response(env, state_action_log, args.type)
-            state_action_log = np.zeros((1, 4))
+            #transient_response(env, state_action_log, args.type)
+            #state_action_log = np.zeros((1, 4))
             action_delay_buffer.append(0)
 
             save_pth()

@@ -27,7 +27,8 @@ parser.add_argument("-w_dtau", type=float, default=0.0, help="diff torque weight
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 parser.add_argument("-to_last_frame", type=int, default=1, help="0: stop when eval_reward is high, 1: train till the last frame")
 parser.add_argument("-env_dt", type=float, default=0.05, help="timestep")
-parser.add_argument("-stay_reward", type=float, default=0.0, help="reward gained for staying in the range")
+parser.add_argument("-stay_reward", type=float, default=1.0, help="reward gained for staying in the range")
+parser.add_argument("-reward_floor", type=int, default=0, help="1: set reward floor")
 parser.add_argument("-norm_reward", type=int, default=0, help="0: nothing, 1: normalize reward")
 parser.add_argument("-reward_function", type=int, default=0, help="choose reward function")
 parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=100, 1: graduate done cost")
@@ -150,7 +151,12 @@ def transient_response(env, state_action_log, type):
 def test(env, agent, args):
     state_action_log = np.zeros((1, 4))
     state = env.reset(mode="test")
-    episode_reward = 0
+
+    if args.reward_floor:
+        episode_reward = -args.stay_reward * 200
+    else:
+        episode_reward = 0
+
     rep = 0
     '''if args.env_dt == 0.05:
         time_duration = 50  # seconds
