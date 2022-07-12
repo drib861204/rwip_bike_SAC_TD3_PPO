@@ -222,7 +222,7 @@ class Pendulum(gym.Env):
 
         if abs(q2_dot) <= self.wheel_max_speed:
             if self.torque_delay:
-                print("last_torque", self.last_torque)
+                #print("last_torque", self.last_torque)
                 q1_dot = q1_dot + ((a - self.last_torque) / (Ip - I2)) * dt
                 q2_dot = q2_dot + ((self.last_torque * Ip - a * I2) / I2 / (Ip - I2)) * dt
             else:

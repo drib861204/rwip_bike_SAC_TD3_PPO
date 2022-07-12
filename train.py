@@ -165,7 +165,6 @@ def train():
             #print("action", action)'''
 
             next_state, reward, done, _ = env.step(action, rep)
-            print("next_state", next_state, type(next_state))
             #if done or rep >= rep_max:
             agent.step(state, action, reward, next_state, [done], frame, 0)
             #else:
