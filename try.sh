@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 50-53 torque delay
+# FIN: SAC 50-53 torque delay
 
 # no consider torque delay
 python3 train.py -trial 50 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -torque_delay 0
