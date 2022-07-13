@@ -82,6 +82,9 @@ class Pendulum(gym.Env):
         elif self.torque_delay == 2:
             high = np.array([self.max_q1, self.max_q1dot, self.wheel_max_speed, self.max_torque, self.max_torque], dtype=np.float32)
             low = np.array([-self.max_q1, -self.max_q1dot, -self.wheel_max_speed, -self.max_torque, -self.max_torque], dtype=np.float32)
+        elif self.torque_delay == 3:
+            high = np.array([self.max_q1, self.max_q1dot, self.wheel_max_speed, self.max_torque, self.max_torque, self.max_torque], dtype=np.float32)
+            low = np.array([-self.max_q1, -self.max_q1dot, -self.wheel_max_speed, -self.max_torque, -self.max_torque, -self.max_torque], dtype=np.float32)
         else:
             high = np.array([self.max_q1, self.max_q1dot, self.wheel_max_speed], dtype=np.float32)
             low = np.array([-self.max_q1, -self.max_q1dot, -self.wheel_max_speed], dtype=np.float32)
@@ -151,6 +154,10 @@ class Pendulum(gym.Env):
             return self.state_delay
         elif self.torque_delay == 2:
             self.state_delay = np.append(np.array(self.agent_state, dtype=np.float32), [-0.5, -0.5])
+            return self.state_delay
+        elif self.torque_delay == 3:
+            self.last2_torque = 0
+            self.state_delay = np.append(np.array(self.agent_state, dtype=np.float32), [-0.5, -0.5, -0.5])
             return self.state_delay
         else:
             #print(np.array(self.agent_state, dtype=np.float32))
@@ -322,6 +329,15 @@ class Pendulum(gym.Env):
             last_torque_norm = (self.last_torque - self.max_torque) / (2 * self.max_torque)
             torque_norm = (torque - self.max_torque) / (2 * self.max_torque)
             self.state_delay = np.append(np.array(self.agent_state, dtype=np.float32), [last_torque_norm, torque_norm])
+            self.last_torque = torque
+            return self.state_delay, -costs, done, {}
+
+        elif self.torque_delay == 3:
+            last2_torque_norm = (self.last2_torque - self.max_torque) / (2 * self.max_torque)
+            last_torque_norm = (self.last_torque - self.max_torque) / (2 * self.max_torque)
+            torque_norm = (torque - self.max_torque) / (2 * self.max_torque)
+            self.state_delay = np.append(np.array(self.agent_state, dtype=np.float32), [last2_torque_norm, last_torque_norm, torque_norm])
+            self.last2_torque = self.last_torque
             self.last_torque = torque
             return self.state_delay, -costs, done, {}
 
