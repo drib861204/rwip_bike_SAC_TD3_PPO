@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 62-65 both I2->0.006, tune max_torque, clip q2_dot
+# FIN: SAC 62-65 both I2->0.006, tune max_torque, clip q2_dot
 
 python3 train.py -trial 62 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 21.0
 python3 train.py -trial 62 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 21.0

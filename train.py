@@ -6,6 +6,7 @@ import numpy as np
 import argparse
 import matplotlib.pyplot as plt
 from collections import deque
+import dill
 #from Pendulum_v3_mirror import *
 from Pendulum_v4 import *
 from files.Agent import Agent
@@ -18,6 +19,7 @@ from test import test
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("-type", type=str, default=None, help="SAC, TD3, PPO")
 parser.add_argument("-trial", type=int, default=0, help="trial")
+parser.add_argument("-cont_trial", type=int, default=0, help="continue training trial")
 parser.add_argument("-seed", type=int, default=0, help="Seed for the env and torch network weights, default is 0")
 parser.add_argument("-frames", type=int, default=1e5, help="frames")
 parser.add_argument("-w_q1", type=int, default=100, help="q1 weight")
@@ -126,7 +128,21 @@ def timer(start, end):
 
 def save_pth():
     if args.type == "SAC":
-        torch.save(agent.actor_local.state_dict(), checkpoint_path)
+        #torch.save(agent.actor_local.state_dict(), checkpoint_path)
+        torch.save(agent.actor_local.state_dict(), checkpoint_path+"_actor")
+        torch.save(agent.actor_optimizer.state_dict(), checkpoint_path+"_actor_optimizer")
+
+        torch.save(agent.critic1.state_dict(), checkpoint_path+"_critic1")
+        torch.save(agent.critic1_optimizer.state_dict(), checkpoint_path+"_critic1_optimizer")
+
+        torch.save(agent.critic2.state_dict(), checkpoint_path+"_critic2")
+        torch.save(agent.critic2_optimizer.state_dict(), checkpoint_path+"_critic2_optimizer")
+
+        torch.save(agent.log_alpha, checkpoint_path+"_log_alpha")
+        torch.save(agent.alpha_optimizer.state_dict(), checkpoint_path+"_alpha_optimizer")
+
+        dill.dump(agent.memory, file = open(checkpoint_path+"_memory", "wb"))
+
     elif args.type == "TD3":
         torch.save(agent.actor.state_dict(), checkpoint_path)
     elif args.type == "PPO":
@@ -135,7 +151,7 @@ def save_pth():
 
 def train():
     rep = 0
-    rep_max = 200 #500
+    rep_max = 500
     eval_every = 1000
     if args.reward_floor:
         episode_reward = -args.stay_reward * rep_max
@@ -250,8 +266,20 @@ if __name__ == "__main__":
 
     if args.type == "SAC":
         agent = Agent(state_size=state_size, action_size=action_size, args=args, device=device)
-        #if args.continued_training:
-        #    agent.actor_local.load_state_dict(torch.load(f"runs_SAC/rwip34/rwip34_{args.seed}.pth", map_location=device))
+        
+        if args.cont_trial:
+            model_pth = f"runs_SAC/rwip{args.cont_trial}/rwip{args.cont_trial}_{args.seed}"
+            agent.actor_local.load_state_dict(torch.load(model_pth+"_actor", map_location=torch.device('cpu')))
+            agent.actor_optimizer.load_state_dict(torch.load(model_pth+"_actor_optimizer", map_location=torch.device('cpu')))
+            agent.critic1.load_state_dict(torch.load(model_pth+"_critic1", map_location=torch.device('cpu')))
+            agent.critic1_target.load_state_dict(agent.critic1.state_dict())
+            agent.critic1_optimizer.load_state_dict(torch.load(model_pth+"_critic1_optimizer", map_location=torch.device('cpu')))
+            agent.critic2.load_state_dict(torch.load(model_pth+"_critic2", map_location=torch.device('cpu')))
+            agent.critic2_target.load_state_dict(agent.critic2.state_dict())
+            agent.critic2_optimizer.load_state_dict(torch.load(model_pth+"_critic2_optimizer", map_location=torch.device('cpu')))
+            agent.log_alpha = torch.load(model_pth+"_log_alpha", map_location=torch.device('cpu'))
+            agent.alpha_optimizer.load_state_dict(torch.load(model_pth+"_alpha_optimizer", map_location=torch.device('cpu')))
+            agent.memory = dill.load(open(model_pth+"_memory", "rb"))
 
     elif args.type == "TD3":
         max_action = float(env.action_space.high[0])
@@ -285,7 +313,7 @@ if __name__ == "__main__":
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
 
-    checkpoint_path = log_dir + f"/rwip{args.trial}_{args.seed}.pth"
+    checkpoint_path = log_dir + f"/rwip{args.trial}_{args.seed}"
 
     log_dir = log_dir + "/log"
     if not os.path.exists(log_dir):

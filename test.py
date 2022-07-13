@@ -14,6 +14,7 @@ from PPO import PPO
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("-type", type=str, default=None, help="SAC, TD3, PPO")
 parser.add_argument("-trial", type=int, default=0, help="trial")
+parser.add_argument("-cont_trial", type=int, default=0, help="continue training trial")
 parser.add_argument("-seed", type=int, default=0, help="Seed for the env and torch network weights, default is 0")
 parser.add_argument("-frames", type=int, default=1e5, help="frames")
 parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help="Rendering the evaluation runs if set to 1, default=0")
@@ -107,7 +108,7 @@ def transient_response(env, state_action_log, type):
     axs[1].get_xaxis().set_visible(False)
     axs[2].get_xaxis().set_visible(False)
     plt.savefig(f"runs_{type}/rwip{args.trial}/fig/response{args.seed}")
-    #plt.show()
+    plt.show()
 
     '''print("e_ss=",state_action_log[-1,0])
     print("u_ss=",state_action_log[-1,3]*env.max_torque)
@@ -210,7 +211,8 @@ if __name__ == "__main__":
     action_size = env.action_space.shape[0]
 
     log_dir = f"runs_{args.type}/rwip{args.trial}"
-    checkpoint_path = log_dir + f"/rwip{args.trial}_{args.seed}.pth"
+    #checkpoint_path = log_dir + f"/rwip{args.trial}_{args.seed}.pth"
+    checkpoint_path = log_dir + f"/rwip{args.trial}_{args.seed}"
 
     log_dir = log_dir + "/fig"
     if not os.path.exists(log_dir):
@@ -218,7 +220,7 @@ if __name__ == "__main__":
 
     if args.type == "SAC":
         agent = Agent(state_size=state_size, action_size=action_size, args=args, device=device)
-        agent.actor_local.load_state_dict(torch.load(checkpoint_path, map_location=device))
+        agent.actor_local.load_state_dict(torch.load(checkpoint_path+"_actor", map_location=torch.device('cpu')))
 
     elif args.type == "TD3":
         max_action = float(env.action_space.high[0])
