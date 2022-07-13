@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 62,63 both I2->0.006, tune max_torque
+# SAC 62-65 both I2->0.006, tune max_torque, clip q2_dot
 
 python3 train.py -trial 62 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 21.0
 python3 train.py -trial 62 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 21.0
@@ -13,17 +13,41 @@ python3 test.py -trial 62 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -m
 python3 test.py -trial 62 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 21.0
 python3 test.py -trial 62 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 21.0
 
-python3 train.py -trial 63 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
-python3 train.py -trial 63 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
-python3 train.py -trial 63 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
-python3 train.py -trial 63 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
-python3 train.py -trial 63 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 train.py -trial 63 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+python3 train.py -trial 63 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+python3 train.py -trial 63 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+python3 train.py -trial 63 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+python3 train.py -trial 63 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
 python3 plot_graph.py -trial 63 -type SAC
-python3 test.py -trial 63 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
-python3 test.py -trial 63 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
-python3 test.py -trial 63 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
-python3 test.py -trial 63 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
-python3 test.py -trial 63 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 test.py -trial 63 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+python3 test.py -trial 63 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+python3 test.py -trial 63 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+python3 test.py -trial 63 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+python3 test.py -trial 63 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 16.0
+
+python3 train.py -trial 64 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 train.py -trial 64 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 train.py -trial 64 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 train.py -trial 64 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 train.py -trial 64 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 plot_graph.py -trial 64 -type SAC
+python3 test.py -trial 64 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 test.py -trial 64 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 test.py -trial 64 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 test.py -trial 64 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+python3 test.py -trial 64 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 11.0
+
+python3 train.py -trial 65 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 train.py -trial 65 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 train.py -trial 65 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 train.py -trial 65 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 train.py -trial 65 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 plot_graph.py -trial 65 -type SAC
+python3 test.py -trial 65 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 test.py -trial 65 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 test.py -trial 65 -seed 2 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 test.py -trial 65 -seed 3 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
+python3 test.py -trial 65 -seed 4 -type SAC -reward_function 1 -w_q2dot 0.001 -max_torque 6.0
 
 #python3 train.py -trial 46 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9
 #python3 train.py -trial 46 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -continued_training 1 -I_rod_ratio 0.9

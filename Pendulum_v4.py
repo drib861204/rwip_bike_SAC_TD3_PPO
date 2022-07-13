@@ -232,7 +232,7 @@ class Pendulum(gym.Env):
         #    q1_dot = q1_dot
         #    q2_dot = q2_dot
         q1 = angle_normalize(q1 + q1_dot * dt)
-        #q2_dot = np.clip(q2_dot, -self.wheel_max_speed, self.wheel_max_speed)
+        q2_dot = np.clip(q2_dot, -self.wheel_max_speed, self.wheel_max_speed)
         q2 = angle_normalize(angle_normalize(q2) + q2_dot * dt)
 
         #state = np.array([q1[0], q1_dot[0], q2_dot[0]], dtype=np.float32)
