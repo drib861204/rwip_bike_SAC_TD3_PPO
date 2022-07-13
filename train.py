@@ -39,6 +39,7 @@ parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=1
 parser.add_argument("-continued_training", type=int, default=0, help="0: train from the start, 1: train from existing model")
 parser.add_argument("-I_rod_ratio", type=float, default=1.0)
 parser.add_argument("-torque_delay", type=int, default=0, help="consider torque delay. 1: state + last_torque, 2: + last and current torque, 3: original state")
+parser.add_argument("-max_torque", type=float, default=21.0)
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -170,7 +171,6 @@ def train():
 
         if args.type == "SAC":
             action = agent.act(state)
-            action = [-0.5]
             '''action_cmd = agent.act(state)[0]
             action_delay_buffer.append(action_cmd)
             action = [action_delay_buffer[0]]

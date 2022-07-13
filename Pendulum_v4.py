@@ -28,7 +28,7 @@ class Pendulum(gym.Env):
         #self.w_q1 = w_q1
         #self.done_cost = done_cost
         #self.log_norm = log_norm
-        self.stay_reward = args.stay_reward
+        #self.stay_reward = args.stay_reward
         self.w_q2dot = args.w_q2dot
         self.w_tau = args.w_tau
         self.w_dtau = args.w_dtau
@@ -52,7 +52,7 @@ class Pendulum(gym.Env):
         self.t = 0.03
         self.rho = 7870
         self.mass_wheel = 5.0295
-        self.momentum_wheel = 0.0654
+        self.momentum_wheel = 0.006 #0.0654
         #self.mass_wheel = (self.rad_out**2-self.rad_in**2)*self.t*pi*self.rho
         #self.momentum_wheel = self.mass_wheel*(self.rad_out**2+self.rad_in**2)/2
 
@@ -68,7 +68,7 @@ class Pendulum(gym.Env):
         self.max_q1dot = 0.3 #initial q1_dot default 0.3? to be verified
 
         self.wheel_max_speed = 28
-        self.max_torque = 21
+        self.max_torque = args.max_torque #21
 
         self.torque = 0
         self.last_torque = 0
@@ -282,10 +282,10 @@ class Pendulum(gym.Env):
             costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_dtau * (self.last_torque - torque) ** 2\
                     + self.w_q2dot * q2_dot ** 2 + self.w_tau * torque ** 2
 
-        costs -= self.stay_reward # gain reward for staying in the range
+        #costs -= self.stay_reward # gain reward for staying in the range
 
-        #if done:
-        #    costs += 100
+        if done:
+            costs += 100
         '''if done:
             if not self.grad_done_cost:
                 costs += 100

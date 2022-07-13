@@ -35,6 +35,7 @@ parser.add_argument("-grad_done_cost", type=int, default=0, help="0: done cost=1
 parser.add_argument("-continued_training", type=int, default=0, help="0: train from the start, 1: train from existing model")
 parser.add_argument("-I_rod_ratio", type=float, default=1.0)
 parser.add_argument("-torque_delay", type=int, default=0, help="consider torque delay. 1: state + last_torque, 2: + last and current torque, 3: original state")
+parser.add_argument("-max_torque", type=float, default=21.0)
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
