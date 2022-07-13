@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 54-57 cancel done cost, add stay reward, 58-61 set reward floor
+# FIN: SAC 54-57 cancel done cost, add stay reward, 58-61 set reward floor
 
 python3 train.py -trial 54 -seed 0 -type SAC -reward_function 1 -w_q2dot 0.001 -stay_reward 0.001
 python3 train.py -trial 54 -seed 1 -type SAC -reward_function 1 -w_q2dot 0.001 -stay_reward 0.001
