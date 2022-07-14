@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 69-72 I2->0.006, tune max_torque, add torque delay:2 & 3
+# FIN: SAC 69-72 I2->0.006, tune max_torque, add torque delay:2 & 3
 
 for i in 0 1 2 3 4
 do
