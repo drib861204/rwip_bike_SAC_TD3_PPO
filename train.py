@@ -42,6 +42,7 @@ parser.add_argument("-continued_training", type=int, default=0, help="0: train f
 parser.add_argument("-I_rod_ratio", type=float, default=1.0)
 parser.add_argument("-torque_delay", type=int, default=0, help="consider torque delay. 1: state + last_torque, 2: + last and current torque, 3: original state")
 parser.add_argument("-max_torque", type=float, default=21.0)
+parser.add_argument("-rep_max", type=int, default=500)
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -151,7 +152,7 @@ def save_pth():
 
 def train():
     rep = 0
-    rep_max = 500
+    rep_max = args.rep_max #500
     eval_every = 1000
     if args.reward_floor:
         episode_reward = -args.stay_reward * rep_max
