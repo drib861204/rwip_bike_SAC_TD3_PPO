@@ -63,7 +63,7 @@ parser.add_argument("-t", "--tau", type=float, default=0.005, help="Softupdate f
 parser.add_argument("-layer_size", type=int, default=256,
                     help="Number of nodes per neural network layer, default is 256")
 parser.add_argument("-a", "--alpha", type=float,
-                    help="entropy alpha value, if not choosen the value is leaned by the agent")
+                    help="entropy alpha value, if not chosen the value is leaned by the agent")
 
 # TD3 parameters
 parser.add_argument("--start_timesteps", default=25e3, type=int)  # Time steps initial random policy is used
@@ -93,10 +93,10 @@ def transient_response(env, state_action_log, type):
     axs[1].plot(t[1:], state_action_log[1:,1])
     axs[2].plot(t[1:], state_action_log[1:,2])
     axs[3].plot(t[1:], state_action_log[1:,3]*env.max_torque)
-    axs[0].grid()
-    axs[1].grid()
-    axs[2].grid()
-    axs[3].grid()
+    axs[0].grid(axis='y')
+    axs[1].grid(axis='y')
+    axs[2].grid(axis='y')
+    axs[3].grid(axis='y')
     axs[0].set_ylabel('q1(rad)')
     axs[2].set_ylabel('q2 dot(rad/s)')
     axs[3].set_ylabel('torque(Nm)')

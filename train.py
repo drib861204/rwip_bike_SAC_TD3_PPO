@@ -68,7 +68,7 @@ parser.add_argument("-t", "--tau", type=float, default=0.005, help="Softupdate f
 parser.add_argument("-layer_size", type=int, default=256,
                     help="Number of nodes per neural network layer, default is 256")
 parser.add_argument("-a", "--alpha", type=float,
-                    help="entropy alpha value, if not choosen the value is leaned by the agent")
+                    help="entropy alpha value, if not chosen the value is leaned by the agent")
 
 #TD3 arguments
 parser.add_argument("--start_timesteps", default=25e3, type=int)  # Time steps initial random policy is used
