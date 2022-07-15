@@ -33,7 +33,7 @@ class Pendulum(gym.Env):
         self.w_tau = args.w_tau
         self.w_dtau = args.w_dtau
         self.reward_function = args.reward_function
-        self.rep_max = 500
+        #self.rep_max = 500
         #self.grad_done_cost = args.grad_done_cost
         self.torque_delay = args.torque_delay
 
@@ -52,7 +52,7 @@ class Pendulum(gym.Env):
         self.t = 0.03
         self.rho = 7870
         self.mass_wheel = 5.0295
-        self.momentum_wheel = 0.006 #0.0654
+        self.momentum_wheel = 0.0654
         #self.mass_wheel = (self.rad_out**2-self.rad_in**2)*self.t*pi*self.rho
         #self.momentum_wheel = self.mass_wheel*(self.rad_out**2+self.rad_in**2)/2
 

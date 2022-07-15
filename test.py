@@ -38,6 +38,7 @@ parser.add_argument("-I_rod_ratio", type=float, default=1.0)
 parser.add_argument("-torque_delay", type=int, default=0, help="consider torque delay. 1: state + last_torque, 2: + last and current torque, 3: original state")
 parser.add_argument("-max_torque", type=float, default=21.0)
 parser.add_argument("-rep_max", type=int, default=500)
+parser.add_argument("-plot_response", type=int, default=0)
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],

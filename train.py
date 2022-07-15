@@ -43,6 +43,7 @@ parser.add_argument("-I_rod_ratio", type=float, default=1.0)
 parser.add_argument("-torque_delay", type=int, default=0, help="consider torque delay. 1: state + last_torque, 2: + last and current torque, 3: original state")
 parser.add_argument("-max_torque", type=float, default=21.0)
 parser.add_argument("-rep_max", type=int, default=500)
+parser.add_argument("-plot_response", type=int, default=0)
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -110,14 +111,14 @@ def transient_response(env, state_action_log, type):
     axs[1].get_xaxis().set_visible(False)
     axs[2].get_xaxis().set_visible(False)
 
-    '''fig_dir = f"runs_{type}/rwip{args.trial}/fig"
+    fig_dir = f"runs_{type}/rwip{args.trial}/fig"
     if not os.path.exists(fig_dir):
         os.makedirs(fig_dir)
     current_num_files = next(os.walk(fig_dir))[2]
     run_num = len(current_num_files)
     plt.savefig(fig_dir + f"/response{run_num}")
     plt.show()
-    plt.close()'''
+    plt.close()
 
 
 def timer(start, end):
@@ -161,13 +162,14 @@ def train():
     i_episode = 1
     save_count = 0
 
-    action_delay_buffer = deque(maxlen=2)
+    '''action_delay_buffer = deque(maxlen=2)
     action_delay_buffer.append(0)
-    action_delay_buffer.append(0)
+    action_delay_buffer.append(0)'''
 
     state = env.reset(mode="train")
 
-    #state_action_log = np.zeros((1, 4))
+    if args.plot_response:
+        state_action_log = np.zeros((1, 4))
 
     for frame in range(1, int(args.frames) + 1):
         #print(time.time())
@@ -188,6 +190,7 @@ def train():
 
         if args.type == "SAC":
             action = agent.act(state)
+            #action = np.array([-0.5])
             '''action_cmd = agent.act(state)[0]
             action_delay_buffer.append(action_cmd)
             action = [action_delay_buffer[0]]
@@ -227,9 +230,10 @@ def train():
 
         episode_reward += reward
 
-        #state_for_render = env.state
-        #state_action = np.append(state_for_render, action)
-        #state_action_log = np.concatenate((state_action_log, np.asmatrix(state_action)), axis=0)
+        if args.plot_response:
+            state_for_render = env.state
+            state_action = np.append(state_for_render, action)
+            state_action_log = np.concatenate((state_action_log, np.asmatrix(state_action)), axis=0)
 
         if done or rep >= rep_max:
             rep = 0
@@ -245,11 +249,13 @@ def train():
 
             state = env.reset(mode="train")
 
-            #transient_response(env, state_action_log, args.type)
-            #state_action_log = np.zeros((1, 4))
-            action_delay_buffer.append(0)
+            if args.plot_response:
+                transient_response(env, state_action_log, args.type)
+                state_action_log = np.zeros((1, 4))
 
-            save_pth()
+            #action_delay_buffer.append(0)
+
+    save_pth()
 
 
 if __name__ == "__main__":
