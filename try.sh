@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 81-84 tune max torque & torque delay
+# FIN: SAC 81-84 tune max torque & torque delay
 
 for i in 0 1 2 3 4
 do
