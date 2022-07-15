@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 78 validate SAC 34
+# FIN: SAC 78 validate SAC 34
 
 for i in 0 1 2 3 4
 do
