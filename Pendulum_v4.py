@@ -64,7 +64,7 @@ class Pendulum(gym.Env):
             self.momentum_rod *= args.I_rod_ratio
         self.dt = args.env_dt #0.005
         self.gravity = 9.81
-        self.max_q1 = 3.5*pi/180 # stop training below this angle
+        self.max_q1 = args.max_q1*pi/180 # stop training below this angle
         self.max_q1dot = 0.3 #initial q1_dot default 0.3? to be verified
 
         self.wheel_max_speed = 28
@@ -293,15 +293,15 @@ class Pendulum(gym.Env):
             costs = 100 * q1 ** 2 + 1 * q1_dot ** 2 + self.w_dtau * (self.last_torque - torque) ** 2\
                     + self.w_q2dot * q2_dot ** 2 + self.w_tau * torque ** 2
 
+        elif self.reward_function == 8:
+            costs = 100 * q1 ** 2
+            if done:
+                costs += 100
+
         #costs -= self.stay_reward # gain reward for staying in the range
 
-        if done:
-            costs += 100
-        '''if done:
-            if not self.grad_done_cost:
-                costs += 100
-            else:
-                costs += (self.rep_max-rep)'''
+        #if done:
+        #    costs += 100
 
         #if abs(q1) < 0.001 and abs(q1_dot) < 0.001 and abs(q2_dot) < 0.1 :
         #    costs -= 1000
