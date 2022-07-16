@@ -140,8 +140,8 @@ class Pendulum(gym.Env):
 
         self.last_torque = 0
 
-        #self.agent_state = self.norm_agent_state(self.state)
-        self.agent_state = self.state
+        self.agent_state = self.norm_agent_state(self.state)
+        #self.agent_state = self.state
 
         #if not self.log_norm:
         #self.agent_state = self.norm_agent_state(self.agent_state)
@@ -164,8 +164,8 @@ class Pendulum(gym.Env):
         else:
             #print(np.array(self.agent_state, dtype=np.float32))
 
-            #return np.array(self.agent_state, dtype=np.float32)
-            return self.agent_state
+            return np.array(self.agent_state, dtype=np.float32)
+            #return self.agent_state
 
 
     def render(self, eval_run):
@@ -313,8 +313,8 @@ class Pendulum(gym.Env):
         else:
             costs = 0.000025 * q2_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2'''
 
-        #self.agent_state = self.norm_agent_state(self.state)
-        self.agent_state = self.state
+        self.agent_state = self.norm_agent_state(self.state)
+        #self.agent_state = self.state
 
         #if not self.log_norm:
         #self.agent_state = self.norm_agent_state(self.agent_state)
