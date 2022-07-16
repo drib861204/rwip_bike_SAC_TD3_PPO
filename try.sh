@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 86-89 tune env dt
+# FIN: SAC 86-89 tune env dt
 
 for i in 0 1 2 3 4
 do
