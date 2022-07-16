@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 85 cancel state normalization
+# FIN: SAC 85 cancel state normalization
 
 for i in 0 1 2 3 4
 do
