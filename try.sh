@@ -1,4 +1,5 @@
 #!/bin/sh
+# FIN: 
 # SAC 90: reward function only q1 & done cost
 # SAC 91: q1+q1dot+q2dot & no done cost, max_q1->90deg
 
