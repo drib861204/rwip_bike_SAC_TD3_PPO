@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 92: two states: q1, q2 dot
+# FIN: SAC 92: two states: q1, q2 dot
 
 for i in 0 1 2 3 4
 do
