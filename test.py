@@ -40,6 +40,7 @@ parser.add_argument("-max_torque", type=float, default=21.0)
 parser.add_argument("-max_q1", type=float, default=3.5)
 parser.add_argument("-rep_max", type=int, default=500)
 parser.add_argument("-plot_response", type=int, default=0)
+parser.add_argument("-two_state", type=int, default=0, help="only q1 and q2 dot")
 
 # SAC parameters
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -110,7 +111,7 @@ def transient_response(env, state_action_log, type):
     axs[0].get_xaxis().set_visible(False)
     axs[1].get_xaxis().set_visible(False)
     axs[2].get_xaxis().set_visible(False)
-    plt.savefig(f"runs_{type}/rwip{args.trial}/fig/response{args.seed}")
+    #plt.savefig(f"runs_{type}/rwip{args.trial}/fig/response{args.seed}")
     plt.show()
 
     '''print("e_ss=",state_action_log[-1,0])
@@ -182,6 +183,7 @@ def test(env, agent, args):
         if args.type == "SAC":
             action = agent.act(np.expand_dims(state, axis=0), eval=True)
             action = action[0]
+
         elif args.type == "TD3":
             action = agent.select_action(np.array(state))
             action /= env.max_torque

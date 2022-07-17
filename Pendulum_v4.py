@@ -36,6 +36,7 @@ class Pendulum(gym.Env):
         #self.rep_max = 500
         #self.grad_done_cost = args.grad_done_cost
         self.torque_delay = args.torque_delay
+        self.two_state = args.two_state
 
         self.theta_rod = 0
         self.theta_wheel = 0
@@ -88,6 +89,11 @@ class Pendulum(gym.Env):
         else:
             high = np.array([self.max_q1, self.max_q1dot, self.wheel_max_speed], dtype=np.float32)
             low = np.array([-self.max_q1, -self.max_q1dot, -self.wheel_max_speed], dtype=np.float32)
+
+            if self.two_state:
+                high = np.array([self.max_q1, self.wheel_max_speed], dtype=np.float32)
+                low = np.array([-self.max_q1, -self.wheel_max_speed], dtype=np.float32)
+
         self.action_space = spaces.Box(low=-self.max_torque, high=self.max_torque, shape=(1,), dtype=np.float32)
         self.observation_space = spaces.Box(low=low, high=high, dtype=np.float32)
 
@@ -134,7 +140,9 @@ class Pendulum(gym.Env):
         #else:
         elif mode == "test":
             self.ang = 1.5 * pi / 180
-            self.state = np.array([self.ang, 0, 0], dtype=np.float32)
+            #self.state = np.array([self.ang, 0, 0], dtype=np.float32)
+            self.state = np.array([0.0, 0.0, 0.0], dtype=np.float32)
+
             #self.agent_state = np.array([abs(self.ang), 0, 0], dtype=np.float32)
             # self.state = np.array([0, self.max_q1dot, 0],dtype=np.float32)
 
@@ -162,6 +170,9 @@ class Pendulum(gym.Env):
             self.state_delay = np.append(np.array(self.agent_state, dtype=np.float32), [-0.5, -0.5, -0.5])
             return self.state_delay
         else:
+            if self.two_state:
+                return np.array([self.agent_state[0], self.agent_state[2]], dtype=np.float32)
+
             #print(np.array(self.agent_state, dtype=np.float32))
 
             return np.array(self.agent_state, dtype=np.float32)
@@ -300,8 +311,8 @@ class Pendulum(gym.Env):
 
         #costs -= self.stay_reward # gain reward for staying in the range
 
-        #if done:
-        #    costs += 100
+        if done:
+            costs += 100
 
         #if abs(q1) < 0.001 and abs(q1_dot) < 0.001 and abs(q2_dot) < 0.1 :
         #    costs -= 1000
@@ -349,6 +360,9 @@ class Pendulum(gym.Env):
 
         else:
             self.last_torque = torque
+
+            if self.two_state:
+                return np.array([self.agent_state[0], self.agent_state[2]], dtype=np.float32), -costs, done, {}
 
             #return state, -costs, False, {}
             #print(np.array(self.agent_state, dtype=np.float32))

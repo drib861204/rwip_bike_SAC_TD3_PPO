@@ -45,6 +45,7 @@ parser.add_argument("-max_torque", type=float, default=21.0)
 parser.add_argument("-max_q1", type=float, default=3.5) # deg
 parser.add_argument("-rep_max", type=int, default=500)
 parser.add_argument("-plot_response", type=int, default=0)
+parser.add_argument("-two_state", type=int, default=0, help="only q1 and q2 dot")
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
