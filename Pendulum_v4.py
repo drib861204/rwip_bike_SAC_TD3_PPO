@@ -140,8 +140,8 @@ class Pendulum(gym.Env):
         #else:
         elif mode == "test":
             self.ang = 1.5 * pi / 180
-            #self.state = np.array([self.ang, 0, 0], dtype=np.float32)
-            self.state = np.array([0.0, 0.0, 0.0], dtype=np.float32)
+            self.state = np.array([self.ang, 0, 0], dtype=np.float32)
+            #self.state = np.array([0.0, 0.0, 0.0], dtype=np.float32)
 
             #self.agent_state = np.array([abs(self.ang), 0, 0], dtype=np.float32)
             # self.state = np.array([0, self.max_q1dot, 0],dtype=np.float32)
