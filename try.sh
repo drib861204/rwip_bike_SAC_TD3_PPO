@@ -1,5 +1,5 @@
 #!/bin/sh
-# replay memory -> 1000, frames 5W
+# FIN: replay memory -> 1000, frames 5W
 
 # reward function q1+q1 dot
 for i in 0 1 2 3 4
