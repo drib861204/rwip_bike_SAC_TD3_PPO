@@ -111,7 +111,7 @@ def transient_response(env, state_action_log, type):
     axs[0].get_xaxis().set_visible(False)
     axs[1].get_xaxis().set_visible(False)
     axs[2].get_xaxis().set_visible(False)
-    #plt.savefig(f"runs_{type}/rwip{args.trial}/fig/response{args.seed}")
+    plt.savefig(f"runs_{type}/rwip{args.trial}/fig/response{args.seed}")
     plt.show()
 
     '''print("e_ss=",state_action_log[-1,0])
