@@ -21,15 +21,15 @@ parser.add_argument("-type", type=str, default=None, help="SAC, TD3, PPO")
 parser.add_argument("-trial", type=int, default=0, help="trial")
 parser.add_argument("-cont_trial", type=int, default=0, help="continue training trial")
 parser.add_argument("-seed", type=int, default=0, help="Seed for the env and torch network weights, default is 0")
-parser.add_argument("-frames", type=int, default=1e5, help="frames")
+parser.add_argument("-frames", type=int, default=50000, help="frames")
 parser.add_argument("-w_q1", type=int, default=100, help="q1 weight")
 parser.add_argument("-lr_a", type=float, default=0.0003, help="learning rate for actor network")
 parser.add_argument("-lr_c", type=float, default=0.001, help="learning rate for critic network")
 parser.add_argument("-r", "--render", type=int, default=0, choices=[0, 1], help="Rendering the evaluation runs if set to 1, default=0")
 parser.add_argument("-done_cost", type=int, default=100, help="done cost")
 parser.add_argument("-w_q2dot", type=float, default=0.001, help="q2 dot weight")
-parser.add_argument("-w_tau", type=float, default=0.0, help="torque weight")
-parser.add_argument("-w_dtau", type=float, default=0.0, help="diff torque weight")
+parser.add_argument("-w_tau", type=float, default=0.01, help="torque weight")
+parser.add_argument("-w_dtau", type=float, default=0.001, help="diff torque weight")
 parser.add_argument("-log_norm", type=int, default=0, help="0: normalize, 1: log and normalize")
 parser.add_argument("-to_last_frame", type=int, default=1, help="0: stop when eval_reward is high, 1: train till the last frame")
 parser.add_argument("-env_dt", type=float, default=0.05, help="timestep")
@@ -46,6 +46,7 @@ parser.add_argument("-max_q1", type=float, default=3.5) # deg
 parser.add_argument("-rep_max", type=int, default=500)
 parser.add_argument("-plot_response", type=int, default=0)
 parser.add_argument("-two_state", type=int, default=0, help="only q1 and q2 dot")
+parser.add_argument("-norm_state", type=int, default=1)
 
 #SAC arguments
 parser.add_argument("-per", type=int, default=0, choices=[0, 1],
@@ -62,7 +63,7 @@ parser.add_argument("-d2rl", type=int, choices=[0, 1], default=0,
 parser.add_argument("-bs", "--batch_size", type=int, default=256, help="Batch size, default is 256")
 parser.add_argument("--n_updates", type=int, default=1,
                     help="Update-to-Data (UTD) ratio, updates taken per step with the environment, default=1")
-parser.add_argument("-repm", "--replay_memory", type=int, default=int(1e6),
+parser.add_argument("-repm", "--replay_memory", type=int, default=1000,
                     help="Size of the Replay memory, default is 1e6")
 parser.add_argument("-g", "--gamma", type=float, default=0.99, help="discount factor gamma, default is 0.99")
 parser.add_argument("--worker", type=int, default=1, help="Number of parallel worker, default = 1")
@@ -85,7 +86,7 @@ parser.add_argument("--action_std", default=0.6, type=float)  # starting std for
 parser.add_argument("--action_std_decay_rate", default=0.05, type=float)  # linearly decay action_std (action_std = action_std - action_std_decay_rate)
 parser.add_argument("--min_action_std", default=0.1, type=float)  # minimum action_std (stop decay after action_std <= min_action_std)
 parser.add_argument("--action_std_decay_freq", default=10000, type=int)  # int(2.5e5)  # action_std decay frequency (in num timesteps)
-parser.add_argument("--up_step", type=int, default=2000, help="PPO update timestep")
+parser.add_argument("--up_step", type=int, default=1000, help="PPO update timestep")
 parser.add_argument("--K_epochs", type=int, default=80)
 parser.add_argument("--eps_clip", type=float, default=0.2)
 
@@ -305,7 +306,7 @@ if __name__ == "__main__":
             "lr_c": args.lr_c
         }
         agent = TD3.TD3(**kwargs)
-        replay_buffer = utils.ReplayBuffer(state_size, action_size)
+        replay_buffer = utils.ReplayBuffer(state_size, action_size, max_size=1000)
 
     elif args.type == "PPO":
         action_std = args.action_std

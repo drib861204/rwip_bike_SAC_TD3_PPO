@@ -22,13 +22,6 @@ from gym import spaces, logger
 
 class Pendulum(gym.Env):
     def __init__(self, args):
-        #self.frames = frames
-        #self.interval_num = interval_num
-        #self.cur_case = 1
-        #self.w_q1 = w_q1
-        #self.done_cost = done_cost
-        #self.log_norm = log_norm
-        #self.stay_reward = args.stay_reward
         self.w_q2dot = args.w_q2dot
         self.w_tau = args.w_tau
         self.w_dtau = args.w_dtau
@@ -37,6 +30,7 @@ class Pendulum(gym.Env):
         #self.grad_done_cost = args.grad_done_cost
         self.torque_delay = args.torque_delay
         self.two_state = args.two_state
+        self.norm_state = args.norm_state
 
         self.theta_rod = 0
         self.theta_wheel = 0
@@ -148,8 +142,10 @@ class Pendulum(gym.Env):
 
         self.last_torque = 0
 
-        self.agent_state = self.norm_agent_state(self.state)
-        #self.agent_state = self.state
+        if self.norm_state:
+            self.agent_state = self.norm_agent_state(self.state)
+        else:
+            return self.state
 
         #if not self.log_norm:
         #self.agent_state = self.norm_agent_state(self.agent_state)
@@ -324,8 +320,10 @@ class Pendulum(gym.Env):
         else:
             costs = 0.000025 * q2_dot ** 2 + 0.0001 * (self.last_torque - torque) ** 2'''
 
-        self.agent_state = self.norm_agent_state(self.state)
-        #self.agent_state = self.state
+        if self.norm_state:
+            self.agent_state = self.norm_agent_state(self.state)
+        else:
+            self.agent_state = self.state
 
         #if not self.log_norm:
         #self.agent_state = self.norm_agent_state(self.agent_state)
