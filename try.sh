@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 114 -torque_delay 4
+# FIN: SAC 114 -torque_delay 4
 
 # SAC torque delay
 for i in 0 1 2 3 4
