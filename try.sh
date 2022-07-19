@@ -1,5 +1,5 @@
 #!/bin/sh
-# SAC 93-96: tune replay_memory
+# FIN: SAC 93-96: tune replay_memory
 
 for i in 0 1 2 3 4
 do
